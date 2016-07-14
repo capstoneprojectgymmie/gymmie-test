@@ -1,0 +1,635 @@
+key,w_muscle
+yA,Abs
+34,Abs
+V4,Abs
+V4,Shoulders
+mh,Abs
+mh,Glutes
+mh,Hamstrings
+mh,Shoulders
+Jc,Abs
+aa,Abs
+wo,Abs
+wo,Lower Back
+wo,Shoulders
+0b,Abs
+0b,Lower Back
+0b,Shoulders
+4O,Abs
+4O,Glutes
+4O,Hamstrings
+4O,Lats
+4O,Shoulders
+mK,Abs
+mK,Lower Back
+ei,Abs
+ei,Glutes
+ei,Hamstrings
+ei,Lower Back
+ei,Quadriceps
+ei,Shoulders
+ei,Triceps
+Iw,Abs
+h1,Abs
+vy,Abs
+up,Abs
+ku,Calves
+HH,Calves
+3J,Calves
+3J,Hamstrings
+3J,Quadriceps
+hy,Calves
+6O,Calves
+5L,Calves
+yN,Calves
+d8,Calves
+b6,Calves
+7J,Calves
+WL,Calves
+gw,Calves
+Lc,Calves
+dj,Calves
+2N,Calves
+2N,Hamstrings
+2N,Quadriceps
+UP,Calves
+tW,Biceps
+tW,Calves
+tW,Forearms
+tW,Glutes
+tW,Lower Back
+tW,Traps
+dJ,Calves
+dJ,Glutes
+dJ,Lower Back
+Dr,Calves
+Dr,Glutes
+Dr,Hamstrings
+pO,Glutes
+pO,Hamstrings
+pO,Lower Back
+Nc,Glutes
+Nc,Hamstrings
+Nc,Lower Back
+tA,Calves
+tA,Glutes
+tA,Hamstrings
+tA,Lower Back
+G0,Abductors
+G0,Adductors
+G0,Calves
+G0,Glutes
+G0,Hamstrings
+G0,Quadriceps
+4K,Abductors
+4K,Adductors
+4K,Calves
+4K,Glutes
+4K,Hamstrings
+4K,Quadriceps
+3H,Adductors
+3H,Hamstrings
+nC,Calves
+nC,Glutes
+nC,Hamstrings
+nC,Lower Back
+nC,Quadriceps
+nC,Shoulders
+nC,Traps
+l8,Forearms
+l8,Glutes
+l8,Hamstrings
+l8,Lower Back
+l8,Middle Back
+l8,Quadriceps
+l8,Traps
+z1,Biceps
+z1,Calves
+z1,Forearms
+z1,Glutes
+z1,Hamstrings
+z1,Lower Back
+z1,Quadriceps
+z1,Traps
+97,Calves
+97,Forearms
+97,Glutes
+97,Hamstrings
+97,Lower Back
+97,Quadriceps
+97,Shoulders
+97,Traps
+ed,Calves
+ed,Glutes
+ed,Hamstrings
+6x,Abductors
+6x,Calves
+6x,Glutes
+6x,Hamstrings
+6x,Quadriceps
+xi,Quadriceps
+Wo,Abductors
+Wo,Calves
+Wo,Glutes
+Wo,Hamstrings
+Wo,Quadriceps
+IT,Calves
+IT,Forearms
+IT,Glutes
+IT,Hamstrings
+IT,Lower Back
+IT,Quadriceps
+Bm,Calves
+Bm,Glutes
+Bm,Hamstrings
+Bm,Lower Back
+Bm,Quadriceps
+C3,Calves
+C3,Forearms
+C3,Hamstrings
+C3,Quadriceps
+vg,Calves
+vg,Glutes
+vg,Hamstrings
+vg,Quadriceps
+Sl,Calves
+Sl,Glutes
+Sl,Hamstrings
+Sl,Quadriceps
+ic,Calves
+ic,Hamstrings
+ic,Lower Back
+ic,Quadriceps
+6u,Calves
+6u,Glutes
+6u,Hamstrings
+6u,Quadriceps
+LK,Calves
+LK,Glutes
+LK,Hamstrings
+LK,Lower Back
+LK,Quadriceps
+kX,Calves
+kX,Glutes
+kX,Hamstrings
+kX,Quadriceps
+Rt,Calves
+Rt,Glutes
+Rt,Hamstrings
+Rt,Quadriceps
+kw,Hamstrings
+kw,Middle Back
+kw,Quadriceps
+kw,Shoulders
+kw,Traps
+kw,Triceps
+4I,Calves
+4I,Glutes
+4I,Hamstrings
+4I,Quadriceps
+43,Shoulders
+43,Triceps
+UO,Shoulders
+B2,Shoulders
+B2,Triceps
+xN,Shoulders
+2R,Shoulders
+2R,Triceps
+KF,Glutes
+KF,Hamstrings
+KF,Lower Back
+KF,Middle Back
+KF,Quadriceps
+KF,Shoulders
+KF,Traps
+KF,Triceps
+jJ,Shoulders
+wX,Chest
+wX,Shoulders
+wX,Triceps
+Bb,Chest
+Bb,Forearms
+Bb,Shoulders
+QD,Middle Back
+QD,Shoulders
+PR,Shoulders
+PR,Triceps
+qH,Shoulders
+qH,Triceps
+zs,Shoulders
+zs,Triceps
+uQ,Hamstrings
+uQ,Quadriceps
+uQ,Shoulders
+r0,Shoulders
+8x,Chest
+8x,Shoulders
+8x,Triceps
+lR,Triceps
+fL,Triceps
+UX,Forearms
+UX,Triceps
+2t,Chest
+2t,Shoulders
+2t,Triceps
+mA,Triceps
+Bx,Shoulders
+Bx,Triceps
+NW,Triceps
+hb,Chest
+hb,Shoulders
+hb,Triceps
+4h,Shoulders
+4h,Triceps
+pb,Chest
+pb,Shoulders
+pb,Triceps
+WP,Triceps
+f5,Triceps
+Aq,Forearms
+Aq,Triceps
+BB,Chest
+BB,Triceps
+n9,Biceps
+n9,Lats
+n9,Middle Back
+8P,Biceps
+8P,Lats
+8P,Middle Back
+8P,Shoulders
+rO,Lats
+rO,Middle Back
+rO,Traps
+FV,Biceps
+FV,Lats
+FV,Middle Back
+gR,Lats
+rc,Lats
+5s,Biceps
+5s,Lats
+5s,Middle Back
+EC,Biceps
+EC,Lats
+EC,Middle Back
+EC,Shoulders
+jP,Lats
+LV,Biceps
+LV,Lats
+LV,Middle Back
+LV,Shoulders
+7l,Biceps
+7l,Lats
+7l,Middle Back
+Gt,Lats
+PP,Biceps
+PP,Calves
+PP,Glutes
+PP,Hamstrings
+PP,Lats
+D7,Biceps
+D7,Lats
+D7,Middle Back
+Ai,Lats
+Uc,Chest
+Uc,Shoulders
+Uc,Triceps
+sQ,Chest
+sQ,Shoulders
+sQ,Triceps
+De,Chest
+De,Shoulders
+De,Triceps
+36,Chest
+36,Shoulders
+36,Triceps
+0j,Chest
+we,Chest
+we,Shoulders
+we,Triceps
+c9,Chest
+c9,Shoulders
+c9,Triceps
+az,Chest
+Kd,Chest
+Kd,Shoulders
+Kd,Triceps
+fA,Chest
+fA,Shoulders
+fA,Triceps
+9q,Chest
+9q,Shoulders
+9q,Triceps
+eg,Chest
+eg,Shoulders
+eg,Triceps
+PO,Chest
+PO,Shoulders
+PO,Triceps
+Us,Chest
+Us,Shoulders
+W4,Chest
+W4,Shoulders
+W4,Triceps
+TY,Biceps
+TY,Forearms
+VZ,Biceps
+VZ,Forearms
+rJ,Biceps
+SC,Biceps
+wU,Biceps
+Ip,Biceps
+Ip,Forearms
+cb,Biceps
+cb,Chest
+cb,Shoulders
+td,Biceps
+td,Shoulders
+td,Triceps
+K5,Biceps
+wf,Biceps
+QT,Biceps
+QT,Forearms
+JG,Biceps
+Jy,Biceps
+Jy,Forearms
+SX,Biceps
+b9,Biceps
+oG,Abs
+oG,Forearms
+oG,Glutes
+oG,Hamstrings
+oG,Lower Back
+oG,Quadriceps
+oG,Traps
+Mq,Abs
+Mq,Calves
+Mq,Forearms
+Mq,Glutes
+Mq,Hamstrings
+Mq,Lower Back
+Mq,Quadriceps
+Mq,Traps
+6D,Forearms
+Zo,Forearms
+mQ,Forearms
+AD,Forearms
+CH,Forearms
+CH,Glutes
+CH,Hamstrings
+CH,Lower Back
+CH,Middle Back
+CH,Quadriceps
+CH,Traps
+EN,Forearms
+EN,Glutes
+EN,Hamstrings
+EN,Lower Back
+EN,Middle Back
+EN,Quadriceps
+EN,Traps
+P4,Glutes
+P4,Hamstrings
+P4,Lower Back
+Dv,Lower Back
+5q,Glutes
+5q,Hamstrings
+5q,Lower Back
+Hj,Forearms
+Hj,Glutes
+Hj,Hamstrings
+Hj,Lower Back
+Hj,Quadriceps
+Hj,Traps
+mB,Forearms
+mB,Glutes
+mB,Hamstrings
+mB,Lower Back
+mB,Quadriceps
+mB,Traps
+Oj,Adductors
+Oj,Biceps
+Oj,Calves
+Oj,Forearms
+Oj,Glutes
+Oj,Hamstrings
+Oj,Lower Back
+Oj,Middle Back
+Oj,Quadriceps
+Oj,Traps
+C6,Forearms
+C6,Glutes
+C6,Hamstrings
+C6,Lower Back
+C6,Middle Back
+C6,Quadriceps
+C6,Traps
+wM,Forearms
+wM,Glutes
+wM,Hamstrings
+wM,Lower Back
+wM,Middle Back
+wM,Quadriceps
+wM,Traps
+p3,Glutes
+p3,Hamstrings
+p3,Lower Back
+p3,Middle Back
+DG,Biceps
+DG,Lats
+DG,Middle Back
+DG,Shoulders
+id,Biceps
+id,Lats
+id,Lower Back
+id,Middle Back
+id,Traps
+Kn,Biceps
+Kn,Lats
+Kn,Middle Back
+eP,Biceps
+eP,Forearms
+eP,Lats
+eP,Middle Back
+eP,Shoulders
+rF,Biceps
+rF,Lats
+rF,Middle Back
+rF,Shoulders
+4H,Biceps
+4H,Lats
+4H,Middle Back
+BA,Biceps
+BA,Lats
+BA,Middle Back
+FP,Biceps
+FP,Lats
+FP,Middle Back
+Ib,Biceps
+Ib,Lats
+Ib,Middle Back
+Ib,Shoulders
+wD,Biceps
+wD,Lats
+wD,Middle Back
+wD,Traps
+Qw,Biceps
+Qw,Lats
+Qw,Middle Back
+VH,Abs
+VH,Biceps
+VH,Chest
+VH,Lats
+VH,Middle Back
+VH,Triceps
+lu,Biceps
+lu,Lats
+lu,Middle Back
+RW,Forearms
+bO,Forearms
+Ma,Forearms
+e0,Forearms
+m8,Forearms
+ep,Forearms
+JE,Forearms
+ee,Forearms
+Iu,Glutes
+Iu,Lower Back
+51,Biceps
+51,Lats
+51,Middle Back
+51,Shoulders
+Ew,Lats
+Ew,Middle Back
+Yj,Biceps
+Yj,Middle Back
+Yj,Triceps
+uM,Biceps
+uM,Lats
+uM,Shoulders
+CS,Biceps
+CS,Forearms
+1w,Biceps
+LW,Glutes
+qM,Calves
+qM,Glutes
+qM,Hamstrings
+vN,Calves
+vN,Glutes
+vN,Hamstrings
+Th,Glutes
+Th,Hamstrings
+QY,Glutes
+QY,Hamstrings
+aH,Glutes
+aH,Hamstrings
+hS,Glutes
+hS,Hamstrings
+AA,Glutes
+AA,Hamstrings
+s1,Glutes
+s1,Hamstrings
+v9,Calves
+v9,Glutes
+v9,Hamstrings
+XE,Abductors
+XE,Glutes
+8N,Calves
+8N,Glutes
+8N,Hamstrings
+8N,Quadriceps
+RU,Hamstrings
+IH,Glutes
+IH,Hamstrings
+lf,Abductors
+lf,Glutes
+Vx,Glutes
+Vx,Hamstrings
+Gl,Glutes
+Gl,Hamstrings
+OX,Glutes
+OX,Hamstrings
+TG,Glutes
+TG,Hamstrings
+xG,Glutes
+0w,Glutes
+0w,Hamstrings
+b1,Abductors
+b1,Glutes
+BD,Glutes
+BD,Hamstrings
+bp,Glutes
+bp,Hamstrings
+b3,Traps
+Be,Traps
+hR,Forearms
+hR,Shoulders
+hR,Traps
+pm,Forearms
+pm,Shoulders
+pm,Traps
+mn,Shoulders
+mn,Traps
+lE,Shoulders
+lE,Traps
+TE,Biceps
+TE,Shoulders
+TE,Traps
+4N,Neck
+4N,Traps
+ZU,Neck
+pX,Neck
+1t,Neck
+Gr,Neck
+l2,Neck
+X0,Abductors
+dn,Abductors
+dn,Adductors
+m9,Abductors
+m9,Adductors
+bm,Abductors
+bm,Glutes
+bm,Hamstrings
+ra,Glutes
+gx,Adductors
+gx,Glutes
+gx,Hamstrings
+cJ,Adductors
+Dw,Adductors
+PX,Adductors
+Tt,Adductors
+YS,Abductors
+YS,Adductors
+YS,Calves
+YS,Glutes
+YS,Hamstrings
+YS,Quadriceps
+vV,Abductors
+vV,Adductors
+vV,Calves
+vV,Glutes
+vV,Hamstrings
+vV,Quadriceps
+dq,Abductors
+dq,Adductors
+dq,Calves
+dq,Glutes
+dq,Hamstrings
+dq,Quadriceps
+17,Adductors
+17,Calves
+17,Glutes
+17,Hamstrings
+17,Quadriceps
+7c,Adductors
+jC,Adductors
+D0,Abductors
+0,Abductors
+0,Adductors
+ka,Abductors
+qd,Abductors
+8f,Neck
+Ou,Shoulders
+Ou,Traps
+fs,Lats
+fs,Traps
+Ja,Traps
