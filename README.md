@@ -1,11 +1,11 @@
-# gymmie 
-##Interactive Gym Application
+# gymmie - Interactive Gym Application
 ###Repo is titled gymmie-test
 [Current Web deployment](http://gymmie-env.hvkeppcucz.us-west-2.elasticbeanstalk.com)
 [For an introduction to our page](http://capstoneprojectgymmie.github.io/gymmie-test/)
 ##Data Science Involved:
 
-Exercise Reccomendation with two levels: 
+Exercise Reccomendation with two levels  
+
 
 1. Ratings based
 
