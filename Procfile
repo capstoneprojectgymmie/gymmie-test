@@ -1,1 +1,1 @@
-web: gunicorn gymmie-test.wsgi --log-file -
+web: gunicorn ebgymmie.wsgi --log-file -
