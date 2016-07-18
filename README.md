@@ -1,2 +1,2 @@
 # gymmie-test
-Gymmie test1
+http://capstoneprojectgymmie.github.io/gymmie-test/
