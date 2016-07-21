@@ -1,18 +1,15 @@
-<<<<<<< HEAD
 from __future__ import unicode_literals
 
 from django.db import models
 import csv
 
 # Create your models here.
-=======
 from django.db import models
 #just in case
 import csv
 
 # Create your models here.
 # Create your models here.
->>>>>>> 95b3be8256a9710e85d0df146cab5d786b693db7
 #model exercise
 # grab_exercise() function which will allow us to access the components of ex class
 class Exercise(models.Model):
