@@ -16,8 +16,4 @@ def progressreport(request):
 	return render(request, 'goals/progressreportpage.html')
 def exercise(request, exercise_id):
 	the_exercise = get_object_or_404(Exercise, ex_key = exercise_id)
-<<<<<<< HEAD
 	return render(request, 'goals/ex_template.html', {'the_exercise': the_exercise})
-=======
-	return render(request, 'goals/ex_template.html', {'the_exercise': the_exercise})
->>>>>>> 95b3be8256a9710e85d0df146cab5d786b693db7
