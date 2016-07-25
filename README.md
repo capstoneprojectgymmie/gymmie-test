@@ -22,4 +22,4 @@ Levels:
 >Level 100: Even with degradation accounting for levels of consistency in a workout routine as well as overtraining a max level must be adequately defined
 
 ##Members:
-[Gael Blanchard](https://github.com/gaelblanchard), [Billy Wu](https://github.com/billywu94), [Syed Haque](https://github.com/SyedHaque), Fowad Aslam
+[Gael Blanchard](https://github.com/gaelblanchard), [Billy Wu](https://github.com/billywu94), [Syed Haque](https://github.com/SyedHaque), [Fowad Aslam](https://github.com/fowad555)
