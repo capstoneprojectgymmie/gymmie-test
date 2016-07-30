@@ -1,0 +1,438 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script>
+$(function () {
+    $('#weightgraph').highcharts({
+        chart: {
+            type: 'line'
+        },
+        title: {
+            text: 'Weight'
+        },
+        xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+        yAxis: {
+            title: {
+                text: 'Weight'
+            }
+        },
+        plotOptions: {
+            line: {
+                dataLabels: {
+                    enabled: true
+                },
+                enableMouseTracking: false
+            }
+        },
+        series: [{
+            name: 'Weight',
+            data: [{{ levels.weight }}, 200, 315, 190, 160, 140, 180, 130, 145, 124, 139, 119.6]
+        }]
+    });
+    </script>
+  <script>
+$(function () { 
+    $('#bargram').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'You vs IBW'
+        },
+        xAxis: {
+            categories: ['Devine IBW', 'Your Weight', 'Hamwi IBW']
+        },
+        yAxis: {
+            title: {
+                text: 'Weight(in pounds)'
+            }
+        },
+        series: [{
+            name: 'John',
+            data: [{{ levels.user_ibw }}, {{ levels.weight }}, {{ levels.user_ibw_hamwi }}]
+        }]
+    });
+   
+});
+</script>
+</head>
+<body>
+<div class="container">
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+    <li><a data-toggle="tab" href="#menu1">Progress Report</a></li>
+    <li><a data-toggle="tab" href="#menu2">Workout Log</a></li>
+    <li><a data-toggle="tab" href="#menu3">Workout Database</a></li>
+  </ul>
+<!-- Home -->
+  <div class="tab-content">
+      <br>
+    <div id="home" class="tab-pane fade in active">
+        <!-- Picture for user -->
+        <div class="container" style ="width: 30%; height: 50%; float:left;">
+  <img src="{% static 'meettheteam/images/fulls/gael-1.jpg' %}" class="img-thumbnail" alt="Cinque Terre" width="300" height="118">
+</div>
+        <!-- Level Bars -->
+      <div class="container" style ="width: 70%; float:right;">
+        <p>LVL : {{ levels.overall }}</p>
+  <div class="progress">
+    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="40" aria-valuemax="150" style="width:{{ levels.overall }}%">
+  Overall
+    </div>
+  </div>
+   <p>LVL : {{ levels.uarm_level }}</p>
+  <div class="progress">
+    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:{{ levels.uarm_level }}%">
+      Upper Arms
+    </div>
+  </div>
+  <p>LVL : {{ levels.abs_level }}</p>
+  <div class="progress">
+    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:{{ levels.abs_level }}%">
+      Abs
+    </div>
+  </div>
+  <p>LVL : {{ levels.leg_level }}</p>
+  <div class="progress">
+    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:{{ levels.leg_level }}%">
+      Legs    </div>
+  </div>
+          <a data-toggle= "tab" class="btn btn-sq-lg btn-primary" href="#menu1">See More in Progress</a>
+          <a data-toggle="tab" href="#menu2" class="btn btn-sq-lg btn-primary">My Workout Log</a>
+          <a data-toggle="tab" href="#menu3" class="btn btn-sq-lg btn-primary">Add Workouts</a>
+          <a data-toggle="tab" href="#" class="btn btn-sq-lg btn-primary">Add current weight</a>
+          <a data-toggle="tab" href="#" class="btn btn-sq-lg btn-primary">Recomended Workouts</a>
+</div>
+<div id="weightgraph" style="width 50%; float:left; margin: 0 auto;"></div>
+<div id="bargram" style="width 50%; float:right; margin: 0 auto;"></div>
+        <!-- end levels -->
+    </div>
+    <div id="menu1" class="tab-pane fade">
+      <!--<h3>Progress Report</h3>-->
+
+      <div id="weightgraph" style="width 50%; float:left; margin: 0 auto;"></div>
+      <!-- Level Bars -->
+      <div class="container" style ="width: 50%; float: right;">
+        <p>LVL : {{ levels.overall }}</p>
+  <div class="progress">
+    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="40" aria-valuemax="150" style="width:{{ levels.overall }}%">
+  Overall
+    </div>
+  </div>
+   <p>LVL : {{ levels.uarm_level }}</p>
+  <div class="progress">
+    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:{{ levels.uarm_level }}%">
+      Upper Arms
+    </div>
+  </div>
+  <p>LVL : {{ levels.abs_level }}</p>
+  <div class="progress">
+    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:{{ levels.abs_level }}%">
+      Abs
+    </div>
+  </div>
+  <p>LVL : {{ levels.leg_level }}</p>
+  <div class="progress">
+    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:{{ levels.leg_level }}%">
+      Legs    </div>
+  </div>
+  <p>LVL: {{ levels.larm_level }}</p>
+  <div class="progress">
+  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="40" aria-valuemax="150" style="width:{{ levels.larm_level }}%">
+  Lower Arm
+    </div>
+  </div>
+   <p>LVL : {{ levels.back_level }}</p>
+  <div class="progress">
+    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:{{ levels.back_level }}%">
+      Back
+    </div>
+  </div>
+  <p>LVL : {{ levels.cht_level }}</p>
+  <div class="progress">
+    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:{{ levels.cht_level }}%">
+      Chest
+    </div>
+  </div>
+  <p>LVL : {{ levels.glu_level }}</p>
+  <div class="progress">
+    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:{{ levels.glu_level }}%">
+      Glutes    </div>
+  </div>
+  <p>LVL : {{ levels.nec_level }}</p>
+  <div class="progress">
+    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:{{ levels.nec_level }}%">
+      Neck    </div>
+  </div>
+</div>
+<div id="bargram" style="width 50%; float:left; margin: 0 auto;"></div>
+        <!-- end levels -->
+    </div>
+    <!-- end progress report-->
+    <div id="menu2" class="tab-pane fade">
+      <h3>Workout Log</h3>
+      <p>Log of exercises by 3 day split hopefully.</p>
+    </div>
+    <div id="menu3" class="tab-pane fade">
+      <h3>Workout Database</h3>
+      <div class="container">
+  <ul class="nav nav-pills">
+    <li class="active"><a data-toggle="pill" href="#abs">Abs</a></li>
+    <li><a data-toggle="pill" href="#abds">Abductors</a></li>
+    <li><a data-toggle="pill" href="#adds">Adductors</a></li>
+    <li><a data-toggle="pill" href="#bics">Biceps</a></li>
+    <li><a data-toggle="pill" href="#cavs">Calves</a></li>
+    <li><a data-toggle="pill" href="#chst">Chest</a></li>
+    <li><a data-toggle="pill" href="#farms">Forearms</a></li>
+    <li><a data-toggle="pill" href="#glut">Glutes</a></li>
+    <li><a data-toggle="pill" href="#hams">Hamstrings</a></li>
+    <li><a data-toggle="pill" href="#lats">Lats</a></li>
+    <li><a data-toggle="pill" href="#lbak">Lower Back</a></li>
+    <li><a data-toggle="pill" href="#mbak">Middle Back</a></li>
+    <li><a data-toggle="pill" href="#neck">Neck</a></li>
+    <li><a data-toggle="pill" href="#quad">Quadriceps</a></li>
+    <li><a data-toggle="pill" href="#shdr">Shoulders</a></li>
+    <li><a data-toggle="pill" href="#trap">Traps</a></li>
+    <li><a data-toggle="pill" href="#tris">Triceps</a></li>
+    <li><a data-toggle="pill" href="#alle">All</a></li>
+</ul>
+  
+  <div class="tab-content">
+    <div id="abs" class="tab-pane fade in active">
+      <h3>Abs</h3>
+      {% if abs_list %}
+    <ul>
+    {% for abs in abs_list %}
+        <li><a href="/exercise/{{ abs.ex_key }}/">{{ abs.ex_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No exercises are available. Contact the developers</p>
+{% endif %}
+    </div>
+    <div id="abds" class="tab-pane fade">
+      <h3>Abductors</h3>
+      {% if abdu_list %}
+    <ul>
+    {% for abd in abdu_list %}
+        <li><a href="/exercise/{{ abd.ex_key }}/">{{ abd.ex_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No exercises are available. Contact the developers</p>
+{% endif %}
+    </div>
+    <div id="adds" class="tab-pane fade">
+      <h3>Adductors</h3>
+      {% if addu_list %}
+    <ul>
+    {% for add in addu_list %}
+        <li><a href="/exercise/{{ add.ex_key }}/">{{ add.ex_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No exercises are available. Contact the developers</p>
+{% endif %}
+    </div>
+    <div id="bics" class="tab-pane fade">
+      <h3>Biceps</h3>
+      {% if biceps_list %}
+    <ul>
+    {% for biceps in biceps_list %}
+        <li><a href="/exercise/{{ biceps.ex_key }}/">{{ biceps.ex_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No exercises are available. Contact the developers</p>
+{% endif %}
+    </div>
+    <div id="cavs" class="tab-pane fade">
+      <h3>Calves</h3>
+      {% if cavs_list %}
+    <ul>
+    {% for cav in cavs_list %}
+        <li><a href="/exercise/{{ cav.ex_key }}/">{{ cav.ex_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No exercises are available. Contact the developers</p>
+{% endif %}
+    </div>
+    <div id="chst" class="tab-pane fade">
+      <h3>Chest</h3>
+      {% if chest_list %}
+    <ul>
+    {% for chest in chest_list %}
+        <li><a href="/exercise/{{ chest.ex_key }}/">{{ chest.ex_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No exercises are available. Contact the developers</p>
+{% endif %}
+    </div>
+    <div id="farms" class="tab-pane fade">
+      <h3>Forearms</h3>
+      {% if farms_list %}
+    <ul>
+    {% for farm in farms_list %}
+        <li><a href="/exercise/{{ farm.ex_key }}/">{{ farm.ex_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No exercises are available. Contact the developers</p>
+{% endif %}
+    </div>
+    <div id="glut" class="tab-pane fade">
+      <h3>Glutes</h3>
+      {% if glutes_list %}
+    <ul>
+    {% for glutes in glutes_list %}
+        <li><a href="/exercise/{{ glutes.ex_key }}/">{{ glutes.ex_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No exercises are available. Contact the developers</p>
+{% endif %}
+    </div>
+    <div id="hams" class="tab-pane fade">
+      <h3>Hamstrings</h3>
+      {% if ham_list %}
+    <ul>
+    {% for ham in ham_list %}
+        <li><a href="/exercise/{{ ham.ex_key }}/">{{ ham.ex_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No exercises are available. Contact the developers</p>
+{% endif %}
+    </div>
+    <div id="lats" class="tab-pane fade">
+      <h3>Lats</h3>
+      {% if lats_list %}
+    <ul>
+    {% for lats in lats_list %}
+        <li><a href="/exercise/{{ lats.ex_key }}/">{{ lats.ex_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No exercises are available. Contact the developers</p>
+{% endif %}
+    </div>
+    <div id="lbak" class="tab-pane fade">
+      <h3>Lower Back</h3>
+      {% if lback_list %}
+    <ul>
+    {% for lback in lback_list %}
+        <li><a href="/exercise/{{ lback.ex_key }}/">{{ lback.ex_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No exercises are available. Contact the developers</p>
+{% endif %}
+    </div>
+    <div id="mbak" class="tab-pane fade">
+      <h3>Middle Back</h3>
+      {% if mback_list %}
+    <ul>
+    {% for mback in mback_list %}
+        <li><a href="/exercise/{{ mback.ex_key }}/">{{ mback.ex_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No exercises are available. Contact the developers</p>
+{% endif %}
+    </div>
+    <div id="neck" class="tab-pane fade">
+      <h3>Neck</h3>
+      {% if neck_list %}
+    <ul>
+    {% for neck in neck_list %}
+        <li><a href="/exercise/{{ neck.ex_key }}/">{{ neck.ex_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No exercises are available. Contact the developers</p>
+{% endif %}
+    </div>
+    <div id="quad" class="tab-pane fade">
+      <h3>Quadriceps</h3>
+      {% if quad_list %}
+    <ul>
+    {% for quad in quad_list %}
+        <li><a href="/exercise/{{ quad.ex_key }}/">{{ quad.ex_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No exercises are available. Contact the developers</p>
+{% endif %}
+    </div>
+    <div id="shdr" class="tab-pane fade">
+      <h3>Shoulders</h3>
+      {% if shoulders_list %}
+    <ul>
+    {% for shoulders in shoulders_list %}
+        <li><a href="/exercise/{{ shoulders.ex_key }}/">{{ shoulders.ex_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No exercises are available. Contact the developers</p>
+{% endif %}
+    </div>
+    <div id="trap" class="tab-pane fade">
+      <h3>Traps</h3>
+      {% if traps_list %}
+    <ul>
+    {% for traps in traps_list %}
+        <li><a href="/exercise/{{ traps.ex_key }}/">{{ traps.ex_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No exercises are available. Contact the developers</p>
+{% endif %}
+    </div>
+    <div id="tris" class="tab-pane fade">
+      <h3>Triceps</h3>
+      {% if tri_list %}
+    <ul>
+    {% for tri in tri_list %}
+        <li><a href="/exercise/{{ tri.ex_key }}/">{{ tri.ex_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No exercises are available. Contact the developers</p>
+{% endif %}
+    </div>
+    <div id="alle" class="tab-pane fade">
+      <h3>All Exercises</h3>
+      {% if ex_list %}
+    <ul>
+    {% for ex in ex_list %}
+        <li><a href="/exercise/{{ ex.ex_key }}/">{{ ex.ex_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No exercises are available. Contact the developers</p>
+{% endif %}
+    </div>
+  </div>
+</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
+{% endblock %}
