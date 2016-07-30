@@ -53,33 +53,74 @@ abundance of platforms available for people to maintain a healthy lifestyle. One
 </blockquote>
 
 <h3>
+<a id="algorithms-and-calculations" class="anchor" href="#algorithms-and-calculations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Algorithms and Calculations</h3>
+
+<p>All of our calculations and conclusions are based off user provided information. Using user provided information we are able to employ a leveling system based off of strength standards.
+Our algorithm works based on three major point:</p>
+
+<p>1) User Provided Information:</p>
+
+<blockquote>
+<p>Height, Weight, Gender, Calisthenics Maximum Reps(push-ups,sit-ups,lunges,squats,calf raises)</p>
+</blockquote>
+
+<p>By using this information we can calculate Body Mass Index , Ideal Body Weight, and Rep Maxes which allow us to determine the users current level separated by muscle group and overall.</p>
+
+<p>2) Calculated Information:</p>
+
+<blockquote>
+<p>Body Mass Index, Ideal Body Weight (Devine and Hamwi's formula), Levels: Overall, Legs, Abs, Upper Arm Lower Arm, Back, Chest, Glutes, Neck</p>
+</blockquote>
+
+<p>Formula(s):
+Body Mass Index &lt;(weight x 0.45)/ [(height x 0.025)^2]&gt;
+Ideal Body Weight Devine's Formula:
+Male: &lt;110 + (5.1 x height) - 60&gt;
+Female: &lt;100 + (5.1 x height) - 60&gt;
+Ideal Body Weight Hamwi's Formula:
+Male: &lt;106 + (6 x height) - 60&gt;
+Female: &lt;100 + (5 x height) -60&gt;
+Rep Max(Lombardi): &lt;(weight x reps)^0.1&gt;</p>
+
+<p>Weight is in pounds and Height is in inches
+All levels employ Lombardi's Rep Max  calculation. Body Mass Index and Ideal Body Weight serve as calculations to improve the User Interface by providing more information for the user. [Considering adding the BMI Prime calculation) </p>
+
+<p>3) Application:</p>
+
+<blockquote>
+<p>Our main focus from the prior calculations are relating the calisthenic maximum rep tests with Lombardi's Rep Max formula using body weight percentages to determine how much weight is being lifted by a particular muscle during a exercise. This calcuation which allows us to determine the strength is the most important because it allows us to determine the level of the user after this initial test but also a level scale unique to every person based on their weight.</p>
+</blockquote>
+
+<h3>
 <a id="technologies-in-use" class="anchor" href="#technologies-in-use" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Technologies in Use</h3>
 
 <p>Currently Implemented</p>
 
 <blockquote>
-<p>Languages(s): Python 2.7.12, HTML/CSS, Javascript.</p>
+<p>Languages(s): Python 2.7.12, HTML/CSS, Javascript, Bootstrap.</p>
 
 <p>Framework(s): Django 1.9.2.</p>
 
-<p>Web Deployment: AWS Elastic Beanstalk using awsebcli and AWS management console.</p>
+<p>Web Deployment: Python Anywhere (formerly  AWS Elastic Beanstalk using awsebcli and AWS management console.)</p>
 </blockquote>
 
 <p>To be Implemented</p>
 
 <blockquote>
-<p>django-rest-framework, Ionic for mobile apps</p>
+<p>HighCharts
+django-rest-framework, Ionic for mobile apps
+Reconstruction of Web Page</p>
 </blockquote>
 
 <h3>
 <a id="current-web-deployment" class="anchor" href="#current-web-deployment" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Current Web Deployment</h3>
 
-<p><a href="http://gymmie-env.hvkeppcucz.us-west-2.elasticbeanstalk.com/">gymmie web application</a></p>
+<p><a href="http://gtb.pythonanywhere.com">gymmie web application</a></p>
 
 <h3>
 <a id="members" class="anchor" href="#members" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Members</h3>
 
-<p>Gael Blanchard (<a href="https://github.com/gaelblanchard" class="user-mention">@gaelblanchard</a>), Billy Wu (<a href="https://github.com/billywu94" class="user-mention">@billywu94</a>), Syed Haque (<a href="https://github.com/SyedHaque" class="user-mention">@SyedHaque</a>), Fowad Aslam</p>
+<p>Gael Blanchard (<a href="https://github.com/gaelblanchard" class="user-mention">@gaelblanchard</a>), Billy Wu (<a href="https://github.com/billywu94" class="user-mention">@billywu94</a>), Syed Haque (<a href="https://github.com/SyedHaque" class="user-mention">@SyedHaque</a>), Fowad Aslam(<a href="https://github.com/fowad555" class="user-mention">@fowad555</a>)</p>
 
 <h3>
 <a id="timeline" class="anchor" href="#timeline" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Timeline</h3>
