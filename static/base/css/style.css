@@ -1,0 +1,340 @@
+/**********************************
+Responsive navbar-brand image CSS
+- Remove navbar-brand padding for firefox bug workaround
+- add 100% height and width auto ... similar to how bootstrap img-responsive class works
+***********************************/
+.navbar-sticky {
+  z-index: 800;
+    padding-bottom: 0px;
+    margin-bottom: 0;
+}
+.aside{
+    margin: 0;
+}
+
+body {
+    display: block;
+}
+
+/* EXAMPLE 6 - Background Logo*/
+/* CSS Transform Align Navbar Brand Text ... This could also be achieved with table / table-cells */
+.accordion{
+    width:100%;
+    bottom:0;
+	margin-bottom:0;
+	padding-bottom:0;
+}
+.accordion input{
+	border-radius:0;
+}
+.accordion-toggle{
+	text-align:center;
+}
+.accordion-toggle span:after{
+    /* symbol for "opening" panels */
+	font-family: 'FontAwesome';
+	/* essential for enabling glyph */
+	content:"\f078";
+    position:absolute;
+    top:0;
+    bottom:0;
+    right:5%;
+	color: white;
+	text-align:right;
+	float:right;
+	vertical-align:middle;
+	margin-top:0;
+	font-weight:700;
+	font-size:120%;
+  
+}
+.social {
+    z-index: 801;
+    left: 0;
+    position: absolute;
+  top: 50px;
+    font-size: 100%
+}
+.social ul {
+    background: #222;
+}
+.social ul li {
+    list-style: none outside none;
+    display: block;
+    background: #222;
+    padding: 0;
+    margin: 0;
+}
+.social i {
+    width: 90px;
+    height: 50px;
+    color: #FFF;
+    background-color: #222;
+    font-size: 28px;
+    text-align: center;
+    padding-top: 20px;
+    -webkit-transition: all ease 0.3s;
+    transition: all ease 0.3s;  
+}
+.social .fa-facebook:hover {
+    background: #4060A5;
+    border: 1px solid #4060A5;
+}
+.social .fa-twitter:hover {
+    background: #00ABE3;
+    border: 1px solid #00ABE3;
+}
+.social .fa-google-plus:hover {
+    background: #e64522;
+    border: 1px solid #e64522;
+}
+.social .fa-github:hover {
+    background: #343434;
+    border: 1px solid #343434;
+}
+.social .fa-linkedin:hover {
+    background: #E71D36;
+    border: 1px solid #E71D36;
+}
+.social .fa-users:hover {
+  background: #00C6FF;
+  border: 1px solid #00C6FF;
+}
+.social .fa-github:hover {
+  background: #AB6AD6;
+  border: 1px solid #AB6AD6;
+}
+#social-collapse:after {
+    font-family: 'FontAwesome';
+    content: "\f068";
+    float: none;
+    position: relative;
+    color: white;
+}
+#social-collapse.collapsed:after {
+    content: "\f067";
+}
+/* Accordion styling */
+.nav2 > li > a {
+    position: relative;
+    display: block;
+    padding: 0;
+    margin: 0;
+}
+.nav2 > li > a:focus, .nav2 > li > a:hover {
+    text-decoration: none;
+    background-color: #222;
+}
+.text-vertical-center {
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+}
+.text-vertical-center h1 {
+	margin: 0;
+	padding: 0;
+	font-size: 4.5em;
+	font-weight: 700;
+}
+/* after social */
+.panel {
+    border-radius: 0;
+    margin-top: 0;
+}
+.contact-panel{
+	border-radius:0;
+	background-color: #d9534f;
+	border-color: #d43f3a;
+    margin-bottom:0;
+    position:fixed;
+    bottom:0;
+    width:100%;
+    vertical-align:middle;
+}
+.nav2 > li > a {
+    position: relative;
+	display: block;
+	padding: 0;
+	margin: 0;
+}
+.nav2 > li > a:focus, .nav2 > li > a:hover {
+	text-decoration: none;
+	background-color: #222;
+}
+.btn-dark {
+    border-radius: 0;
+    color: #fff;
+    background-color: rgba(0,  0,  0,  0.4);
+}
+.btn-dark:hover, .btn-dark:focus, .btn-dark:active {
+    color: #fff;
+    background-color: rgba(0,  0,  0,  0.7);
+}
+.btn-dark{
+	border-radius: 0;
+	color: #fff;
+	background-color: rgba(0,0,0,0.4);
+}
+.btn-dark:hover,
+.btn-dark:focus,
+.btn-dark:active,
+.btn-dark.active{
+	color: #fff;
+	background-color: rgba(0,0,0,0.7);
+}
+/*
+ * Start Bootstrap - Full Slider (http://startbootstrap.com/)
+ * Copyright 2013-2016 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+ */
+
+html,
+body {
+    height: 100%;
+    font-family: "Lato";
+}
+
+.carousel,
+.item,
+.active {
+    height: 100%;
+    position: relative;
+}
+
+.carousel-inner {
+    height: 100%;
+}
+
+hr{
+    margin-top: 2.5em;
+    margin-bottom: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    border-width: 3px;
+    width: 40%;
+   border-color:#F78181;
+}
+
+section{
+    padding-top: 20px;
+}
+
+/* Background Slide 1 */
+.first{
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    background-image: -webkit-linear-gradient(top, red, black);
+}
+
+/* Background Slide 5 */
+.last{
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    background-image: -webkit-linear-gradient(top, rgba(148, 154, 157, 0.95), rgba(0, 0, 0, 0.95));
+}
+
+/* Rounded Image */
+img.logo{
+    border-radius: 50%;
+}
+
+/* Background for legible text */
+#background.carousel-caption{
+    position: absolute;
+    margin-top: 0px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #212120;
+    opacity: 0.85;
+}
+
+#welcome{
+    margin-top: 0px;
+    font-family: Chalkboard;
+}
+
+p.rhetoric{
+    font-family: Helvetica;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-weight: 100;
+}
+
+#text{
+    padding-bottom: 20px;
+}
+
+.button{
+    border-radius: 4px;
+    background-color: black;
+}
+
+table.row{
+    width: 100%;
+}
+
+td{
+    text-align: center;
+}
+
+td.description{
+    text-align: center;
+    vertical-align: text-top;
+    font-family: "Geneva";
+    font-size: 12px;
+    font-weight: 100;
+}
+
+#icon{
+    padding-top: 25px;
+}
+
+#column1{
+    float: left;
+    width: 33.3%;
+    overflow: hidden;
+}
+
+#column2{
+    float: left;
+    width: 32%;
+    overflow: hidden;
+    padding-bottom: 10px;
+}
+
+#column3{
+    float: left;
+    width: 33.3%;
+    overflow: hidden;
+}
+
+.fill {
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+#form-wrap {
+    display: block;
+    position: relative;
+    z-index: 2;
+    width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+}

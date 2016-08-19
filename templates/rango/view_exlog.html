@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>This is something......</h1>
+    {% if user.is_authenticated %}
+    <a href="/rango/update_weight/">Update Weight</a>
+    <a href="/rango/view_weight/">View Weight</a>
+    <a href="/rango/add_exlog/">Add to Exercise Log</a>
+    <s href="/rango/view_exlog/">View Exercise Log</s>
+<a href="/rango/logout/">Logout</a><br />
+{% else %}
+<a href="/rango/register/">Register Here</a><br />
+<a href="/rango/login/">Login</a><br />
+{% endif %}
+
+</body>
+</html>

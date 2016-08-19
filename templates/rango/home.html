@@ -1,0 +1,150 @@
+{% extends 'rango/base.html' %}
+
+{% block title %}{{ content }}{% endblock %}
+{% load staticfiles %}
+
+{% block content %}
+<body>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Gymmie</title>
+
+</head>
+    <!-- Full Page Image Background Carousel Header -->
+    <header id="myCarousel" class="carousel slide">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>
+            <li data-target="#myCarousel" data-slide-to="4"></li>
+        </ol>
+        
+
+        <!-- Wrapper for Slides -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <!-- Set the first background image using inline CSS below. -->
+                <div class="first"></div>
+                <div class="carousel-caption">
+                <img class="logo" src="{% static "home/images/gymmie-logo.jpeg" %}" style="width: 300px; height: 300px;">
+                    <header>
+							<h2> #1 Workout App in Hunter </h2>
+                            <!-- Insert motivational quote here -->
+                            <p>Wake up with DETERMINATION. </p>
+                            <p>Go to bed with SATISFACTION.</p>
+						</header>
+                </div>
+            </div>
+            <div class="item">
+                <!-- Set the second background image using inline CSS below. -->
+                <img src="{% static "home/images/running.jpg" %}" style="width:100%;height:100%;">
+                <div id="background" class="carousel-caption">
+                    <h2 id="welcome">Welcome to Gymmie</h2>
+                    <section>
+                        <div id="column1">
+                            <p class="rhetoric">A fun and exciting interactive fitness application designed to make exercising enjoyable.</p>
+                        </div>
+                        <div id="column2">
+                            <p class="rhetoric">Looking to ACTUALLY attempt to complete <b><i>THAT</i></b> New Years resolution for the millionth time again? Let <i>Gymmie</i> help you knock off a task on your To-Do list.</p>
+                        </div>
+                        <div id="column3">
+                            <p id="text" class="rhetoric">Even if exercising isn't a way-of-life for you, join <i>Gymmie</i> today and you will reconsider.</p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <div class="item">
+                <!-- Set the third background image using inline CSS below. -->
+                <img src="{% static "home/images/bodybuilder-.jpg" %}" style="width:100%;height:100%;">
+                <div id="background" class="carousel-caption">
+                    <h2 id="welcome">Choosing A Healthy Lifestyle</h2>
+                    <p class="rhetoric"><i>Gymmie</i> isn't just a application that helps users obtain their physique. <i>Gymmie's</i> creators know the importance of exercising which is scientifically proven to improve one's overall health. In fact, exercising 60 minutes a day will undoubtedly help remove most of that fat around the mid-section. To learn more about the benefits of exercising, click on the link below.
+                    <div id="text"><button href="#" onclick="window.open('https://www.cdc.gov/physicalactivity/basics/pa-health/')" class="button">Learn More</button></div></p>
+                </div>
+            </div>
+            <div class="item">
+                <!-- Set the fourth background image using inline CSS below. -->
+                <img src="{% static "home/images/yoga.jpg" %}" style="width:100%;height:100%;">
+                <div id="background" class="carousel-caption">
+                    <h2 id="welcome">Summer's Here</h2>
+                    <p class="rhetoric">Whether you are looking forward to building mass or staying lean, just choose a workout plan and the creators of <i>Gymmie</i> will come up with a specially designed algorithm to pick out exercises designed to help you get started. Want to create your own workout plan? Unlock more difficult exercises? Start by creating a <b>FREE</b> account and you will not be disappointed with the results.
+                        <div id="text"><button href="#" onclick="window.open('/rango/register/')" class="button">Register</button>
+                        </div>
+                    </p>
+                </div>
+            </div>
+            <div class="item">
+                <!-- Set the fifth background image using inline CSS below. -->
+                <div class="last"></div>
+                <div class="carousel-caption">
+                    <h2 id="welcome">What Makes Us Different?</h2>
+                    <p>There Are Hundreds Of Fitness Applications. What Do We Offer?</p>
+                    <hr noshade>
+                    <table class="row" style="width:100%">
+                        <tr> <!--Icons-->
+                            <td id="icon" width="33.3%"><span class="fa fa-area-chart fa-5x" aria-hidden="true"></span></td>
+                            <td id="icon" width="33.3%"><span class="fa fa-gamepad fa-5x" aria-hidden="true"></span></td>
+                            <td id="icon" width="33.3%"><span class="fa fa-medkit fa-5x" aria-hidden="true"></span></td>
+                        </tr>
+                        
+                        <tr> <!--Attribute Name-->
+                            <th>Progress Report</th>
+                            <th>RPG Style</th>
+                            <th>Injury Database</th>
+                        </tr>
+                        
+                        <tr> <!--Description-->
+                            <td class="description">Charts available for users to visualize their progress</td>
+                            <td class="description">Have fun while staying fit</td>
+                            <td class="description">Injured? Still want to Level Up? Enter the injury and we will remove the exercise correlating to that injured muscle from the workout plan</td>
+                        
+                        </tr>
+                        
+                        <tr> <!--Icons-->
+                            <td id="icon"><span class="fa fa-list fa-5x" aria-hidden="true"></span></td>
+                            <td id="icon"><span class="fa fa-magic fa-5x" aria-hidden="true"></span></td>
+                            <td id="icon"><span class="fa fa-thumbs-up fa-5x" aria-hidden="true"></span></td>
+                        </tr>
+                        
+                        <tr> <!--Attribute Name-->
+                            <th>Workout Exercises</th>
+                            <th>Daily Challenges</th>
+                            <th>Satisfaction Guaranteed</th>
+                        </tr>
+                        
+                        <tr> <!--Description-->
+                            <td class="description">Hundreds exercises to choose from. Register today!</td>
+                            <td class="description">Complete challenges to gain more EXP Points</td>
+                            <td class="description">You will not regret choosing <strong>Gymmie</strong></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+</header>
+    
+        <!-- Controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="icon-prev"></span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="icon-next"></span>
+        </a>
+
+
+    <!-- Script to Activate the Carousel -->
+    <script>
+    $('.carousel').carousel({
+        interval: 5000 //changes the speed
+    })
+    </script>
+</body>
+
+    <!--Font Awesome-->
+{% endblock %}

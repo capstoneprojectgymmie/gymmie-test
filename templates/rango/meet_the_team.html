@@ -1,0 +1,74 @@
+{% extends 'rango/base_nosidebar.html' %}
+
+{% load staticfiles %}
+
+{% block title %}{{ content }}{% endblock %}
+
+{% block content %}
+
+
+ <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Meet the team page">
+    <meta name="author" content="Billy Wu">
+
+    <title>Gymmie - Meet The Team</title>
+
+    <!-- Custom styles for this template -->
+    <link href="{% static "meettheteam/css/teampage.css" %}" rel="stylesheet">
+  </head>
+    
+<div id="rozay">
+    
+    <div class="team">
+    <h1 class="headerpad">Meet The Minds Behind Gymmie</h1>
+    </div>  
+    
+    <div id="newcontent">
+    <div class="column">
+        <p id="logo" style="text-align:center"><img src="{% static "meettheteam/gymmie-logo.jpeg" %}" style="width: 100px; height: 100px;"></p>
+        <h4 id="sidecontent"><center>Meet The Team</center></h4>
+        <ul class="fa-ul">
+            <li id="link"><a href="/rango/"><span class="fa fa-home fa-2x fa-inverse"></span></a></li>
+            <li id="link"><a href="https://capstoneprojectgymmie.github.io/gymmie-test/"><span class="fa fa-github fa-2x fa-inverse"></span></a></li>
+            <li id="link"><a href="#"><span class="fa fa-linkedin fa-2x fa-inverse"></span></a></li>
+        </ul>
+    </div>
+    </div>
+    
+<a class="pop">
+    <p style="text-align:center"><img src="{% static "meettheteam/gael.jpg" %}" style="width: 100px; height: 100px;"></p>
+</a>
+    <h4 style="text-align:center">Gael Blanchard</h4>
+    <p class="description">An aspiring computer scientist with experience in Python, C++, HTML, and Swift. Creative and passionate, Gael is always seeking new challenges and oppurtunities. With varying interests from application development to database management Gael is seeking more ways to put the power of code into the hands of the common man.</p>
+    
+<a class="pop">
+    <p style="text-align:center"><img src="{% static "meettheteam/billy.jpg" %}" style="width: 100px; height: 100px;"></p>
+</a>
+    <h4 style="text-align:center"> Billy Wu</h4>
+    <p  class="description"> My passion for learning about new technologies began in high school when I enrolled into the Information Technology program. During that time I learned the basics of computer programming languages such as HTML, Python, and Java, which sparked my interest in pursing a degree in Computer Science. My interests away from the classroom include reading novels, listening to Sinatra, playing the guitar, and going to the gym. </p>
+    
+<a class="pop">
+    <p style="text-align:center"><img src="{% static "meettheteam/syed.png" %}" style="width: 100px; height: 100px;"></p>
+</a>
+    <h4 style="text-align:center">Syed Haque</h4>
+    <p class="description">Computer Science is a beautiful field of study, something that I didn't really know much about prior to college. What really got me interested what the aspect of just applying bare logic onto something and getting desired outcomes which as programmers is something we learn to control. Now, just a few things outside of academia. I like to play sports, watch movies, laugh, relax, and a couple of other things that we can do as humans. Having a passion for exercising and bringing out the best in people, me and a couple of friends are working on this app to make things like obesity and other weight or lack-of-activity related problems a thing of the past, that's where "Gymmie" comes in.<p>
+    
+    <a class="pop">
+    <p style="text-align:center"><img src="{% static "meettheteam/fowad.jpg" %}" style="width: 100px; height: 100px;"></p>
+</a>
+    <h4 style="text-align:center">Fowad Aslam</h4>
+        <p class="description">I didn't expect to find myself coding full term apps and websites. The idea of coding got me interested from seeing how a bunch of 0s and 1s could make something greater. Coding is made into almost everything we use and the future will just show the advancement of technology. I want to be there when that happens and being a software developer makes me proud to know how far we got and how far we will get. I am currently working on an app with my team and the app is called GYMMIE. The app will redefine how you work out and perceive the gym. We hope to inspire other small developers to start big things and grow with us as a community.</p>
+        
+
+        <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- Font Awesome Icons -->
+    <script src="https://use.fontawesome.com/a00bec6c72.js"></script>
+
+    </div>
+{% endblock %}

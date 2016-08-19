@@ -1,0 +1,952 @@
+{% extends 'rango/base_nosidebar.html' %}
+{% block title %}{{ content }}{% endblock %}
+
+{% block content %}
+{% load staticfiles %}
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    {% load chartit %}
+    {{ chart_list|load_charts:"weightchart,weightchart2,bmichart,bmichart2,ibwchart,levelschart" }}
+    {% if all_ex %}
+    {% for ex in all_ex %}
+    <div class="modal fade" id="myModal{{ ex.ex_key }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        </button>
+        <h4 class="modal-title" id="myModalLabel" align="center">{{ ex.ex_name }}</h4>
+      </div>
+      <div class="modal-body">
+        <!--Image Code Here-->
+        {% with 'exercises/'|add:ex.image_name as image_location %}
+                            <img src="{% static image_location %}" alt="ALT NAME" style="width:100%;" />
+                            {% endwith %}
+        <p align="center">{{ ex.ex_type }}</p>
+        <p align="center">{{ ex.ex_dif }}</p>
+        <p align="center">{{ ex.directions}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <a href="/rango/add/{{ ex.ex_key }}" type="button" class="btn btn-primary">Add to Exercise Log</a>
+      </div>
+    </div>
+  </div>
+</div>
+    {% endfor %}
+    {% endif %}
+    <style>
+table, td, th {
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 15px;
+}
+</style>
+
+    </head>
+<body style="background: linear-gradient(45deg, #49a09d, #5f2c82);">
+    <!-- The whole div -->
+<div class="container" style="background:#666666;">
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home" style="color:#b8d4e3;">Home</a></li>
+    <li><a data-toggle="tab" href="#menu1" style="color:#b8d4e3;">Progress Report</a></li>
+    <li><a data-toggle="tab" href="#menu2" style="color:#b8d4e3;">Workout Log</a></li>
+    <li><a data-toggle="tab" href="#menu3" style="color:#b8d4e3;">Workout Database</a></li>
+  </ul>
+<!-- Home -->
+  <div class="tab-content">
+      <br>
+    <div id="home" class="tab-pane fade in active">
+        <!-- Picture for user -->
+        <div style ="width: 30%; height: 50%; float:left;">
+  <img src="{% static "meettheteam/gymmie-logo.jpeg" %}" class="img-thumbnail" alt="Cinque Terre" width="300" height="118">
+</div>
+<!-- Level Bars [Home] -->
+      <div style ="width: 70%; float:right;">
+        <p>LVL : {{ levels.overall|floatformat }}</p>
+  <div class="progress">
+    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="40" aria-valuemax="150" style="width:{{ levels.overall }}%">
+  Overall
+    </div>
+  </div>
+          <p>LVL : {{ levels.chest|floatformat }}</p>
+  <div class="progress">
+    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="40" aria-valuemin="40" aria-valuemax="150" style="width:{{ levels.chest }}%">
+  Chest
+    </div>
+  </div>
+   <p>LVL : {{ levels.upperarm|floatformat }}</p>
+  <div class="progress">
+    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:{{ levels.upperarm }}%">
+      Upper Arms
+    </div>
+  </div>
+  <p>LVL : {{ levels.abslevel|floatformat }}</p>
+  <div class="progress">
+    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:{{ levels.abslevel }}%">
+      Abs
+    </div>
+  </div>
+  <p>LVL : {{ levels.leg|floatformat }}</p>
+  <div class="progress">
+    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:{{ levels.leg }}%">
+      Legs    </div>
+<!--Levels[Home] END-->
+<!--Other Tabs [Home]-->
+  </div>
+          <a data-toggle= "tab" class="btn btn-sq-lg btn-primary" href="#menu1">See More in Progress</a>
+          <a data-toggle="tab" href="#menu2" class="btn btn-sq-lg btn-primary">My Workout Log</a>
+          <a data-toggle="tab" href="#menu3" class="btn btn-sq-lg btn-primary">Add Workouts</a>
+          <a href="/rango/update_weight/" class="btn btn-sq-lg btn-primary">Add current weight</a>
+          <!-- Add Feauture
+          <a data-toggle="tab" href="#" class="btn btn-sq-lg btn-primary">Recomended Workouts</a>-->
+</div>
+<!--Other Tabs [Home] END -->
+<!--Graphs Ideally Go Here-->
+        <div id='weightchart' style="width:50%;float:right;"></div>
+        <div id='bmichart' style="width:50%;float:right;height:30%;"></div>
+    </div>
+<!--Home END-->
+<!--Progress Report BEGIN-->
+    <div id="menu1" class="tab-pane fade">
+      <!-- Level Bars [Progress Report] -->
+      <div class="container" style ="width: 40%; float: left;">
+        <p>LVL : {{ levels.overall|floatformat }}</p>
+  <div class="progress">
+    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="40" aria-valuemax="150" style="width:{{ levels.overall }}%">
+  Overall
+    </div>
+  </div>
+   <p>LVL : {{ levels.upperarm|floatformat }}</p>
+  <div class="progress">
+    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:{{ levels.upperarm }}%">
+      Upper Arms
+    </div>
+  </div>
+  <p>LVL : {{ levels.abslevel|floatformat }}</p>
+  <div class="progress">
+    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:{{ levels.abslevel }}%">
+      Abs
+    </div>
+  </div>
+  <p>LVL : {{ levels.leg|floatformat }}</p>
+  <div class="progress">
+    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:{{ levels.leg }}%">
+      Legs    </div>
+  </div>
+  <p>LVL: {{ levels.lowerarm|floatformat }}</p>
+  <div class="progress">
+  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="40" aria-valuemax="150" style="width:{{ levels.lowerarm }}%">
+  Lower Arm
+    </div>
+  </div>
+   <p>LVL : {{ levels.back|floatformat }}</p>
+  <div class="progress">
+    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:{{ levels.back }}%">
+      Back
+    </div>
+  </div>
+  <p>LVL : {{ levels.chest|floatformat }}</p>
+  <div class="progress">
+    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:{{ levels.chest }}%">
+      Chest
+    </div>
+  </div>
+  <p>LVL : {{ levels.glutes|floatformat }}</p>
+  <div class="progress">
+    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:{{ levels.glutes }}%">
+      Glutes    </div>
+  </div>
+  <p>LVL : {{ levels.neck|floatformat }}</p>
+  <div class="progress">
+    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:{{ levels.neck }}%">
+      Neck    </div>
+  </div>
+</div>
+<!--Insert Graphs-->
+        
+    <div id='ibwchart' style="width:50%;float:left;height:50%;"></div>
+    <div id='levelschart' style="width:50%;float:left;height:50%;"></div>
+        <div id='bmichart2' style="width:35%;height:50%;float:left;"></div>
+        <div id='weightchart2' style="width:50%;height:50%;float:right;margin-right:100px;"></div>
+        <!-- end levels [Progress Report] -->
+    </div>
+    <!-- end progress report-->
+<!--Workout Routine Page-->
+    <div id="menu2" class="tab-pane fade">
+            <table>
+  <tr>
+    <th>Day One</th>
+    <th>Day Two</th>
+    <th>Day Three</th>
+  </tr>
+  <tr>
+    <td>
+        {% if day_1log %}
+        {% for ex in day_1log %}
+         <div class="col-md-6">
+                        <div class="thumbnail" style="float:left;">
+                            {% with 'exercises/'|add:ex.exercise.image_name as image_location %}
+                            <img src="{% static image_location %}" alt="ALT NAME" style="width:243px;height:243px;" />
+                            {% endwith %}
+                            <div>
+                                
+                                <p align="center">{{ ex.exercise.ex_name }}</p>
+                                
+                                <p align="center">Sets : {{ ex.sets }} Reps: {{ ex.reps }} Weight: {{ ex.weight }}</p>
+                                
+                                <p align="center"><a href="/rango/delete/{{ ex.id }}/" class="btn btn-success btn-block btn-lg">Completed</a>
+                                <a href="#" class="btn btn-danger btn-block">Not Completed
+                                    </a></p>
+                            </div>
+                        </div>
+                
+                </div>
+        {% endfor %}
+        {% endif %}
+      </td>
+    <td>
+        {% if day_2log %}
+        {% for ex in day_2log %}
+         <div class="col-md-6">
+                        <div class="thumbnail" style="float:left;">
+                            {% with 'exercises/'|add:ex.exercise.image_name as image_location %}
+                            <img src="{% static image_location %}" alt="ALT NAME" style="width:243px;height:243px;" />
+                            {% endwith %}
+                            <div>
+                                
+                                <p align="center">{{ ex.exercise.ex_name }}</p>
+                                
+                                <p align="center">Sets : {{ ex.sets }} Reps: {{ ex.reps }} Weight: {{ ex.weight }}</p>
+                                
+                                <p align="center"><a href="/rango/delete/{{ ex.id }}/" class="btn btn-success btn-block btn-lg">Completed</a>
+                                <a href="#" class="btn btn-danger btn-block">Not Completed
+                                    </a></p>
+                            </div>
+                        </div>
+                
+                </div>
+        {% endfor %}
+        {% endif %}
+      </td>
+    <td>
+        {% if day_3log %}
+        {% for ex in day_3log %}
+         <div class="col-md-6">
+                        <div class="thumbnail" style="float:left;">
+                            {% with 'exercises/'|add:ex.exercise.image_name as image_location %}
+                            <img src="{% static image_location %}" alt="ALT NAME" style="width:243px;height:243px;" />
+                            {% endwith %}
+                            <div>
+                                
+                                <p align="center">{{ ex.exercise.ex_name }}</p>
+                                
+                                <p align="center">Sets : {{ ex.sets }} Reps: {{ ex.reps }} Weight: {{ ex.weight }}</p>
+                                
+                                <p align="center"><a href="/rango/delete/{{ ex.id }}/" class="btn btn-success btn-block btn-lg">Completed</a>
+                                <a href="#" class="btn btn-danger btn-block">Not Completed
+                                    </a></p>
+                            </div>
+                        </div>
+                
+                </div>
+        {% endfor %}
+        {% endif %}
+      </td>
+  </tr>
+  
+</table>
+    </div>
+      <!--Implement Viewing and Deleting from Model here -->
+<!--Database Workout-->
+    <div id="menu3" class="tab-pane fade">
+      <div>
+<!--Navigation for Exercise Database -->
+          <div class="col-sm-3" >
+  <ul class="nav nav-tabs-dropdown" >
+    <li class="active"><a data-toggle="pill" href="#abs"style="color:#b8d4e3;">Abs</a></li>
+    <li><a data-toggle="pill" href="#abds"style="color:#b8d4e3;">Abductors</a></li>
+    <li><a data-toggle="pill" href="#adds" style="color:#b8d4e3;">Adductors</a></li>
+    <li><a data-toggle="pill" href="#bics" style="color:#b8d4e3;">Biceps</a></li>
+    <li><a data-toggle="pill" href="#cavs" style="color:#b8d4e3;">Calves</a></li>
+    <li><a data-toggle="pill" href="#chst" style="color:#b8d4e3;">Chest</a></li>
+    <li><a data-toggle="pill" href="#farms" style="color:#b8d4e3;">Forearms</a></li>
+    <li><a data-toggle="pill" href="#glut" style="color:#b8d4e3;">Glutes</a></li>
+    <li><a data-toggle="pill" href="#hams" style="color:#b8d4e3;">Hamstrings</a></li>
+    <li><a data-toggle="pill" href="#lats" style="color:#b8d4e3;">Lats</a></li>
+    <li><a data-toggle="pill" href="#lbak" style="color:#b8d4e3;">Lower Back</a></li>
+    <li><a data-toggle="pill" href="#mbak" style="color:#b8d4e3;">Middle Back</a></li>
+    <li><a data-toggle="pill" href="#neck" style="color:#b8d4e3;">Neck</a></li>
+    <li><a data-toggle="pill" href="#quad" style="color:#b8d4e3;">Quadriceps</a></li>
+    <li><a data-toggle="pill" href="#shdr" style="color:#b8d4e3;">Shoulders</a></li>
+    <li><a data-toggle="pill" href="#trap" style="color:#b8d4e3;">Traps</a></li>
+    <li><a data-toggle="pill" href="#tris" style="color:#b8d4e3;">Triceps</a></li>
+    <li><a data-toggle="pill" href="#alle" style="color:#b8d4e3;">All</a></li>
+</ul>
+          </div>
+<!--Nvigation Exercise Database END--> 
+  <div class="tab-content">
+    <div id="abs" class="tab-pane fade in active">
+      <h3>Abs</h3>
+        <!--Insert Abs here-->
+        <div class="page-wrapper">
+        <ul class="thumbnails" >
+                <!-- Insert if code -->
+                {% if ab_ex %}
+                    {% for ex in ab_ex %}
+            <div class="col-md-6" style="width:30%;">
+                        <div class="thumbnail" style="float:right;">
+                            {% with 'exercises/'|add:ex.image_name as image_location %}
+                            <img src="{% static image_location %}" alt="ALT NAME" style="width:300px;height:200px;" />
+                            {% endwith %}
+                            <div>
+                            <p align="center">{{ ex.ex_name }}</p><!-- The exercise name -->
+                            <p align="center">{{ ex.ex_dif }}</p><!-- Difficulty -->
+                            <p align="center"><a href="/rango/add/{{ ex.ex_key }}" class="btn btn-primary btn-block">Add to Exercise Log</a>
+                            <button type="button" class="btn btn-danger btn-block btn-lg" data-toggle="modal" data-target="#myModal{{ ex.ex_key }}">
+  More Info
+</button>
+                            </p>
+                            </div>
+                        </div>
+                
+                </div>            
+            
+                    {% endfor %}
+                {% else %}
+                    <strong>No exercises to show</strong>
+                {% endif %}
+        </ul>
+</div>
+    </div>
+    <div id="abds" class="tab-pane fade">
+      <h3>Abductors</h3>
+        <!--Insert Abs here-->
+        <div class="page-wrapper">
+        <ul class="thumbnails" >
+                <!-- Insert if code -->
+                {% if chest_ex %}
+                    {% for ex in chest_ex %}
+            <div class="col-md-6" style="width:30%;">
+                        <div class="thumbnail" style="float:right;">
+                            {% with 'exercises/'|add:ex.image_name as image_location %}
+                            <img src="{% static image_location %}" alt="ALT NAME" style="width:300px;height:200px;" />
+                            {% endwith %}
+                            <div>
+                            <p align="center">{{ ex.ex_name }}</p><!-- The exercise name -->
+                            <p align="center">{{ ex.ex_dif }}</p><!-- Difficulty -->
+                            <p align="center"><a href="/rango/add/{{ ex.ex_key }}" class="btn btn-primary btn-block">Add to Exercise Log</a>
+                            <button type="button" class="btn btn-danger btn-block btn-lg" data-toggle="modal" data-target="#myModal{{ ex.ex_key }}">
+  More Info
+</button>
+                            </p>
+                            </div>
+                        </div>
+                
+                </div>            
+            
+                    {% endfor %}
+                {% else %}
+                    <strong>No exercises to show</strong>
+                {% endif %}
+        </ul>
+</div>
+    </div>
+    <div id="adds" class="tab-pane fade">
+      <h3>Adductor</h3>
+        <!--Insert Abs here-->
+        <div class="page-wrapper">
+        <ul class="thumbnails" >
+                <!-- Insert if code -->
+                {% if adductor_ex %}
+                    {% for ex in adductor_ex %}
+            <div class="col-md-6" style="width:30%;">
+                        <div class="thumbnail" style="float:right;">
+                            {% with 'exercises/'|add:ex.image_name as image_location %}
+                            <img src="{% static image_location %}" alt="ALT NAME" style="width:300px;height:200px;" />
+                            {% endwith %}
+                            <div>
+                            <p align="center">{{ ex.ex_name }}</p><!-- The exercise name -->
+                            <p align="center">{{ ex.ex_dif }}</p><!-- Difficulty -->
+                            <p align="center"><a href="/rango/add/{{ ex.ex_key }}" class="btn btn-primary btn-block">Add to Exercise Log</a>
+                            <button type="button" class="btn btn-danger btn-block btn-lg" data-toggle="modal" data-target="#myModal{{ ex.ex_key }}">
+  More Info
+</button>
+                            </p>
+                            </div>
+                        </div>
+                
+                </div>            
+            
+                    {% endfor %}
+                {% else %}
+                    <strong>No exercises to show</strong>
+                {% endif %}
+        </ul>
+</div>
+    </div>
+    <div id="bics" class="tab-pane fade">
+      <h3>Biceps</h3>
+        <!--Insert Abs here-->
+        <div class="page-wrapper">
+        <ul class="thumbnails" >
+                <!-- Insert if code -->
+                {% if biceps_ex %}
+                    {% for ex in biceps_ex %}
+            <div class="col-md-6" style="width:30%;">
+                        <div class="thumbnail" style="float:right;">
+                            {% with 'exercises/'|add:ex.image_name as image_location %}
+                            <img src="{% static image_location %}" alt="ALT NAME" style="width:300px;height:200px;" />
+                            {% endwith %}
+                            <div>
+                            <p align="center">{{ ex.ex_name }}</p><!-- The exercise name -->
+                            <p align="center">{{ ex.ex_dif }}</p><!-- Difficulty -->
+                            <p align="center"><a href="/rango/add/{{ ex.ex_key }}" class="btn btn-primary btn-block">Add to Exercise Log</a>
+                            <button type="button" class="btn btn-danger btn-block btn-lg" data-toggle="modal" data-target="#myModal{{ ex.ex_key }}">
+  More Info
+</button>
+                            </p>
+                            </div>
+                        </div>
+                
+                </div>            
+            
+                    {% endfor %}
+                {% else %}
+                    <strong>No exercises to show</strong>
+                {% endif %}
+        </ul>
+</div>
+    </div>
+    <div id="cavs" class="tab-pane fade">
+      <h3>Calves</h3>
+        <!--Insert Abs here-->
+        <div class="page-wrapper">
+        <ul class="thumbnails" >
+                <!-- Insert if code -->
+                {% if calves_ex %}
+                    {% for ex in calves_ex %}
+            <div class="col-md-6" style="width:30%;">
+                        <div class="thumbnail" style="float:right;">
+                            {% with 'exercises/'|add:ex.image_name as image_location %}
+                            <img src="{% static image_location %}" alt="ALT NAME" style="width:300px;height:200px;" />
+                            {% endwith %}
+                            <div>
+                            <p align="center">{{ ex.ex_name }}</p><!-- The exercise name -->
+                            <p align="center">{{ ex.ex_dif }}</p><!-- Difficulty -->
+                            <p align="center"><a href="http://bootsnipp.com/" class="btn btn-primary btn-block">Add to Exercise Log</a>
+                            <button type="button" class="btn btn-danger btn-block btn-lg" data-toggle="modal" data-target="#myModal{{ ex.ex_key }}">
+  More Info
+</button>
+                            </p>
+                            </div>
+                        </div>
+                
+                </div>            
+            
+                    {% endfor %}
+                {% else %}
+                    <strong>No exercises to show</strong>
+                {% endif %}
+        </ul>
+</div>
+    </div>
+    <div id="chst" class="tab-pane fade">
+      <h3>Chest</h3>
+        <!--Insert Abs here-->
+        <div class="page-wrapper">
+        <ul class="thumbnails" >
+                <!-- Insert if code -->
+                {% if chest_ex %}
+                    {% for ex in chest_ex %}
+            <div class="col-md-6" style="width:30%;">
+                        <div class="thumbnail" style="float:right;">
+                            {% with 'exercises/'|add:ex.image_name as image_location %}
+                            <img src="{% static image_location %}" alt="ALT NAME" style="width:300px;height:200px;" />
+                            {% endwith %}
+                            <div>
+                            <p align="center">{{ ex.ex_name }}</p><!-- The exercise name -->
+                            <p align="center">{{ ex.ex_dif }}</p><!-- Difficulty -->
+                            <p align="center"><a href="/rango/add/{{ ex.ex_key }}" class="btn btn-primary btn-block">Add to Exercise Log</a>
+                            <button type="button" class="btn btn-danger btn-block btn-lg" data-toggle="modal" data-target="#myModal{{ ex.ex_key }}">
+  More Info
+</button>
+                            </p>
+                            </div>
+                        </div>
+                
+                </div>            
+            
+                    {% endfor %}
+                {% else %}
+                    <strong>No exercises to show</strong>
+                {% endif %}
+        </ul>
+</div>
+    </div>
+    <div id="farms" class="tab-pane fade">
+      <h3>Forearms</h3>
+        <!--Insert Abs here-->
+        <div class="page-wrapper">
+        <ul class="thumbnails" >
+                <!-- Insert if code -->
+                {% if forearms_ex %}
+                    {% for ex in forearms_ex %}
+            <div class="col-md-6" style="width:30%;">
+                        <div class="thumbnail" style="float:right;">
+                            {% with 'exercises/'|add:ex.image_name as image_location %}
+                            <img src="{% static image_location %}" alt="ALT NAME" style="width:300px;height:200px;" />
+                            {% endwith %}
+                            <div>
+                            <p align="center">{{ ex.ex_name }}</p><!-- The exercise name -->
+                            <p align="center">{{ ex.ex_dif }}</p><!-- Difficulty -->
+                            <p align="center"><a href="http://bootsnipp.com/" class="btn btn-primary btn-block">Add to Exercise Log</a>
+                            <button type="button" class="btn btn-danger btn-block btn-lg" data-toggle="modal" data-target="#myModal{{ ex.ex_key }}">
+  More Info
+</button>
+                            </p>
+                            </div>
+                        </div>
+                
+                </div>            
+            
+                    {% endfor %}
+                {% else %}
+                    <strong>No exercises to show</strong>
+                {% endif %}
+        </ul>
+</div>
+    </div>
+    <div id="glut" class="tab-pane fade">
+      <h3>Glutes</h3>
+        <!--Insert Abs here-->
+        <div class="page-wrapper">
+        <ul class="thumbnails" >
+                <!-- Insert if code -->
+                {% if glutes_ex %}
+                    {% for ex in glutes_ex %}
+            <div class="col-md-6" style="width:30%;">
+                        <div class="thumbnail" style="float:right;">
+                            {% with 'exercises/'|add:ex.image_name as image_location %}
+                            <img src="{% static image_location %}" alt="ALT NAME" style="width:300px;height:200px;" />
+                            {% endwith %}
+                            <div>
+                            <p align="center">{{ ex.ex_name }}</p><!-- The exercise name -->
+                            <p align="center">{{ ex.ex_dif }}</p><!-- Difficulty -->
+                            <p align="center"><a href="/rango/add/{{ ex.ex_key }}" class="btn btn-primary btn-block">Add to Exercise Log</a>
+                            <button type="button" class="btn btn-danger btn-block btn-lg" data-toggle="modal" data-target="#myModal{{ ex.ex_key }}">
+  More Info
+</button>
+                            </p>
+                            </div>
+                        </div>
+                
+                </div>
+<div class="modal fade" id="myModal{{ ex.ex_key }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        </button>
+        <h4 class="modal-title" id="myModalLabel" align="center">{{ ex.ex_name }}</h4>
+      </div>
+      <div class="modal-body">
+        <!--Image Code Here-->
+        {% with 'exercises/'|add:ex.image_name as image_location %}
+                            <img src="{% static image_location %}" alt="ALT NAME" style="width:100%;" />
+                            {% endwith %}
+        <p align="center">{{ ex.ex_type }}</p>
+        <p align="center">{{ ex.ex_dif }}</p>
+        <p align="center">{{ ex.directions}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <a href="/rango/add/{{ ex.ex_key }}" type="button" class="btn btn-primary">Add to Exercise Log</a>
+      </div>
+    </div>
+  </div>
+</div>            
+            
+                    {% endfor %}
+                {% else %}
+                    <strong>No exercises to show</strong>
+                {% endif %}
+        </ul>
+</div>
+    </div>
+    <div id="hams" class="tab-pane fade">
+      <h3>Hamstrings</h3>
+        <!--Insert Abs here-->
+        <div class="page-wrapper">
+        <ul class="thumbnails" >
+                <!-- Insert if code -->
+                {% if hamstrings_ex %}
+                    {% for ex in hamstrings_ex %}
+            <div class="col-md-6" style="width:30%;">
+                        <div class="thumbnail" style="float:right;">
+                            {% with 'exercises/'|add:ex.image_name as image_location %}
+                            <img src="{% static image_location %}" alt="ALT NAME" style="width:300px;height:200px;" />
+                            {% endwith %}
+                            <div>
+                            <p align="center">{{ ex.ex_name }}</p><!-- The exercise name -->
+                            <p align="center">{{ ex.ex_dif }}</p><!-- Difficulty -->
+                            <p align="center"><a href="/rango/add/{{ ex.ex_key }}" class="btn btn-primary btn-block">Add to Exercise Log</a>
+                            <button type="button" class="btn btn-danger btn-block btn-lg" data-toggle="modal" data-target="#myModal{{ ex.ex_key }}">
+  More Info
+</button>
+                            </p>
+                            </div>
+                        </div>
+                
+                </div>
+<div class="modal fade" id="myModal{{ ex.ex_key }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        </button>
+        <h4 class="modal-title" id="myModalLabel" align="center">{{ ex.ex_name }}</h4>
+      </div>
+      <div class="modal-body">
+        <!--Image Code Here-->
+        {% with 'exercises/'|add:ex.image_name as image_location %}
+                            <img src="{% static image_location %}" alt="ALT NAME" style="width:100%;" />
+                            {% endwith %}
+        <p align="center">{{ ex.ex_type }}</p>
+        <p align="center">{{ ex.ex_dif }}</p>
+        <p align="center">{{ ex.directions}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <a href="/rango/add/{{ ex.ex_key }}" type="button" class="btn btn-primary">Add to Exercise Log</a>
+      </div>
+    </div>
+  </div>
+</div>            
+            
+                    {% endfor %}
+                {% else %}
+                    <strong>No exercises to show</strong>
+                {% endif %}
+        </ul>
+</div>
+    </div>
+    <div id="lats" class="tab-pane fade">
+      <h3>Lats</h3>
+        <!--Insert Abs here-->
+        <div class="page-wrapper">
+        <ul class="thumbnails" >
+                <!-- Insert if code -->
+                {% if lats_ex %}
+                    {% for ex in lats_ex %}
+            <div class="col-md-6" style="width:30%;">
+                        <div class="thumbnail" style="float:right;">
+                            {% with 'exercises/'|add:ex.image_name as image_location %}
+                            <img src="{% static image_location %}" alt="ALT NAME" style="width:300px;height:200px;" />
+                            {% endwith %}
+                            <div>
+                            <p align="center">{{ ex.ex_name }}</p><!-- The exercise name -->
+                            <p align="center">{{ ex.ex_dif }}</p><!-- Difficulty -->
+                            <p align="center"><a href="/rango/add/{{ ex.ex_key }}" class="btn btn-primary btn-block">Add to Exercise Log</a>
+                            <button type="button" class="btn btn-danger btn-block btn-lg" data-toggle="modal" data-target="#myModal{{ ex.ex_key }}">
+  More Info
+</button>
+                            </p>
+                            </div>
+                        </div>
+                
+                </div>            
+            
+                    {% endfor %}
+                {% else %}
+                    <strong>No exercises to show</strong>
+                {% endif %}
+        </ul>
+</div>
+    </div>
+    <div id="lbak" class="tab-pane fade">
+      <h3>Lower Back</h3>
+        <!--Insert Abs here-->
+        <div class="page-wrapper">
+        <ul class="thumbnails" >
+                <!-- Insert if code -->
+                {% if mback_ex %}
+                    {% for ex in mback_ex %}
+            <div class="col-md-6" style="width:30%;">
+                        <div class="thumbnail" style="float:right;">
+                            {% with 'exercises/'|add:ex.image_name as image_location %}
+                            <img src="{% static image_location %}" alt="ALT NAME" style="width:300px;height:200px;" />
+                            {% endwith %}
+                            <div>
+                            <p align="center">{{ ex.ex_name }}</p><!-- The exercise name -->
+                            <p align="center">{{ ex.ex_dif }}</p><!-- Difficulty -->
+                            <p align="center"><a href="/rango/add/{{ ex.ex_key }}" class="btn btn-primary btn-block">Add to Exercise Log</a>
+                            <button type="button" class="btn btn-danger btn-block btn-lg" data-toggle="modal" data-target="#myModal{{ ex.ex_key }}">
+  More Info
+</button>
+                            </p>
+                            </div>
+                        </div>
+                
+                </div>            
+            
+                    {% endfor %}
+                {% else %}
+                    <strong>No exercises to show</strong>
+                {% endif %}
+        </ul>
+</div>
+    </div>
+    <div id="mbak" class="tab-pane fade">
+      <h3>Middle Back</h3>
+        <!--Insert Abs here-->
+        <div class="page-wrapper">
+        <ul class="thumbnails" >
+                <!-- Insert if code -->
+                {% if mback_ex %}
+                    {% for ex in mback_ex %}
+            <div class="col-md-6" style="width:30%;">
+                        <div class="thumbnail" style="float:right;">
+                            {% with 'exercises/'|add:ex.image_name as image_location %}
+                            <img src="{% static image_location %}" alt="ALT NAME" style="width:300px;height:200px;" />
+                            {% endwith %}
+                            <div>
+                            <p align="center">{{ ex.ex_name }}</p><!-- The exercise name -->
+                            <p align="center">{{ ex.ex_dif }}</p><!-- Difficulty -->
+                            <p align="center"><a href="/rango/add/{{ ex.ex_key }}" class="btn btn-primary btn-block">Add to Exercise Log</a>
+                            <button type="button" class="btn btn-danger btn-block btn-lg" data-toggle="modal" data-target="#myModal{{ ex.ex_key }}">
+  More Info
+</button>
+                            </p>
+                            </div>
+                        </div>
+                
+                </div>            
+            
+                    {% endfor %}
+                {% else %}
+                    <strong>No exercises to show</strong>
+                {% endif %}
+        </ul>
+</div>
+</div>
+    <div id="neck" class="tab-pane fade">
+      <h3>Chest</h3>
+        <!--Insert Abs here-->
+        <div class="page-wrapper">
+        <ul class="thumbnails" >
+                <!-- Insert if code -->
+                {% if neck_ex %}
+                    {% for ex in neck_ex %}
+            <div class="col-md-6" style="width:30%;">
+                        <div class="thumbnail" style="float:right;">
+                            {% with 'exercises/'|add:ex.image_name as image_location %}
+                            <img src="{% static image_location %}" alt="ALT NAME" style="width:300px;height:200px;" />
+                            {% endwith %}
+                            <div>
+                            <p align="center">{{ ex.ex_name }}</p><!-- The exercise name -->
+                            <p align="center">{{ ex.ex_dif }}</p><!-- Difficulty -->
+                            <p align="center"><a href="/rango/add/{{ ex.ex_key }}" class="btn btn-primary btn-block">Add to Exercise Log</a>
+                            <button type="button" class="btn btn-danger btn-block btn-lg" data-toggle="modal" data-target="#myModal{{ ex.ex_key }}">
+  More Info
+</button>
+                            </p>
+                            </div>
+                        </div>
+                
+                </div>            
+            
+                    {% endfor %}
+                {% else %}
+                    <strong>No exercises to show</strong>
+                {% endif %}
+        </ul>
+</div>
+</div>
+    <div id="quad" class="tab-pane fade">
+      <h3>Quadriceps</h3>
+        <!--Insert Abs here-->
+        <div class="page-wrapper">
+        <ul class="thumbnails" >
+                <!-- Insert if code -->
+                {% if quad_ex %}
+                    {% for ex in quad_ex %}
+            <div class="col-md-6" style="width:30%;">
+                        <div class="thumbnail" style="float:right;">
+                            {% with 'exercises/'|add:ex.image_name as image_location %}
+                            <img src="{% static image_location %}" alt="ALT NAME" style="width:300px;height:200px;" />
+                            {% endwith %}
+                            <div>
+                            <p align="center">{{ ex.ex_name }}</p><!-- The exercise name -->
+                            <p align="center">{{ ex.ex_dif }}</p><!-- Difficulty -->
+                            <p align="center"><a href="/rango/add/{{ ex.ex_key }}" class="btn btn-primary btn-block">Add to Exercise Log</a>
+                            <button type="button" class="btn btn-danger btn-block btn-lg" data-toggle="modal" data-target="#myModal{{ ex.ex_key }}">
+  More Info
+</button>
+                            </p>
+                            </div>
+                        </div>
+                
+                </div>            
+            
+                    {% endfor %}
+                {% else %}
+                    <strong>No exercises to show</strong>
+                {% endif %}
+        </ul>
+</div>
+    </div>
+    <div id="shdr" class="tab-pane fade">
+      <h3>Shoulder</h3>
+        <!--Insert Abs here-->
+        <div class="page-wrapper">
+        <ul class="thumbnails" >
+                <!-- Insert if code -->
+                {% if shoulder_ex %}
+                    {% for ex in shoulder_ex %}
+            <div class="col-md-6" style="width:30%;">
+                        <div class="thumbnail" style="float:right;">
+                            {% with 'exercises/'|add:ex.image_name as image_location %}
+                            <img src="{% static image_location %}" alt="ALT NAME" style="width:300px;height:200px;" />
+                            {% endwith %}
+                            <div>
+                            <p align="center">{{ ex.ex_name }}</p><!-- The exercise name -->
+                            <p align="center">{{ ex.ex_dif }}</p><!-- Difficulty -->
+                            <p align="center"><a href="/rango/add/{{ ex.ex_key }}" class="btn btn-primary btn-block">Add to Exercise Log</a>
+                            <button type="button" class="btn btn-danger btn-block btn-lg" data-toggle="modal" data-target="#myModal{{ ex.ex_key }}">
+  More Info
+</button>
+                            </p>
+                            </div>
+                        </div>
+                
+                </div>            
+            
+                    {% endfor %}
+                {% else %}
+                    <strong>No exercises to show</strong>
+                {% endif %}
+        </ul>
+</div>
+    </div>
+    <div id="trap" class="tab-pane fade">
+      <h3>Traps</h3>
+        <!--Insert Abs here-->
+        <div class="page-wrapper">
+        <ul class="thumbnails" >
+                <!-- Insert if code -->
+                {% if traps_ex %}
+                    {% for ex in traps_ex %}
+            <div class="col-md-6" style="width:30%;">
+                        <div class="thumbnail" style="float:right;">
+                            {% with 'exercises/'|add:ex.image_name as image_location %}
+                            <img src="{% static image_location %}" alt="ALT NAME" style="width:300px;height:200px;" />
+                            {% endwith %}
+                            <div>
+                            <p align="center">{{ ex.ex_name }}</p><!-- The exercise name -->
+                            <p align="center">{{ ex.ex_dif }}</p><!-- Difficulty -->
+                            <p align="center"><a href="/rango/add/{{ ex.ex_key }}" class="btn btn-primary btn-block">Add to Exercise Log</a>
+                            <button type="button" class="btn btn-danger btn-block btn-lg" data-toggle="modal" data-target="#myModal{{ ex.ex_key }}">
+  More Info
+</button>
+                            </p>
+                            </div>
+                        </div>
+                
+                </div>            
+            
+                    {% endfor %}
+                {% else %}
+                    <strong>No exercises to show</strong>
+                {% endif %}
+        </ul>
+</div>
+    </div>
+    <div id="tris" class="tab-pane fade">
+      <h3>Triceps</h3>
+        <!--Insert Abs here-->
+        <div class="page-wrapper">
+        <ul class="thumbnails" >
+                <!-- Insert if code -->
+                {% if triceps_ex %}
+                    {% for ex in triceps_ex %}
+            <div class="col-md-6" style="width:30%;">
+                        <div class="thumbnail" style="float:right;">
+                            {% with 'exercises/'|add:ex.image_name as image_location %}
+                            <img src="{% static image_location %}" alt="ALT NAME" style="width:300px;height:200px;" />
+                            {% endwith %}
+                            <div>
+                            <p align="center">{{ ex.ex_name }}</p><!-- The exercise name -->
+                            <p align="center">{{ ex.ex_dif }}</p><!-- Difficulty -->
+                            <p align="center"><a href="/rango/add/{{ ex.ex_key }}" class="btn btn-primary btn-block">Add to Exercise Log</a>
+                            <button type="button" class="btn btn-danger btn-block btn-lg" data-toggle="modal" data-target="#myModal{{ ex.ex_key }}">
+  More Info
+</button>
+                            </p>
+                            </div>
+                        </div>
+                
+                </div>            
+            
+                    {% endfor %}
+                {% else %}
+                    <strong>No exercises to show</strong>
+                {% endif %}
+        </ul>
+</div>
+</div>
+    <div id="alle" class="tab-pane fade">
+        <h3>Exercises</h3>
+        <!--Insert Abs here-->
+        <div class="page-wrapper">
+        <ul class="thumbnails" >
+                <!-- Insert if code -->
+                {% if all_ex %}
+                    {% for ex in all_ex %}
+            <div class="col-md-6" style="width:30%;">
+                        <div class="thumbnail" style="float:right;">
+                            {% with 'exercises/'|add:ex.image_name as image_location %}
+                            <img src="{% static image_location %}" alt="ALT NAME" style="width:300px;height:200px;" />
+                            {% endwith %}
+                            <div>
+                            <p align="center">{{ ex.ex_name }}</p><!-- The exercise name -->
+                            <p align="center">{{ ex.ex_dif }}</p><!-- Difficulty -->
+                            <p align="center"><a href=href="/rango/add/{{ ex.ex_key }}" class="btn btn-primary btn-block">Add to Exercise Log</a>
+                            <button type="button" class="btn btn-danger btn-block btn-lg" data-toggle="modal" data-target="#myModal{{ ex.ex_key }}">
+  More Info
+</button>
+                            </p>
+                            </div>
+                        </div>
+                
+                </div>         
+            
+                    {% endfor %}
+                {% else %}
+                    <strong>No exercises to show</strong>
+                {% endif %}
+        </ul>
+</div>
+    </div>
+  </div>
+<!-- END of pills in Exercise Database-->
+</div>
+        <!--container holding all the database stuff-->
+    </div>
+      <!-- END Workout Database -->
+  </div>
+    <!-- END TABS STRUCTURE -->
+</div>
+<!-- END THE DASHBOARD -->
+
+</body>
+{% endblock %}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <title>Gymmie Base Raza</title>
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+    
+    <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext'>
+<link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+
+        <link rel="stylesheet" href="{% static "base/css/style.css" %}">
+      <link href="{% static "home/css/slider.css" %}" rel="stylesheet">
+
+    <script src="https://use.fontawesome.com/a00bec6c72.js"></script>
+    
+    
+  </head>
+
+
+  <nav class="navbar-sticky navbar navbar-inverse navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+        <a class="navbar-brand" href="/rango/">Gymmie
+        </a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/rango/">Home</a></li>
+          <li><a href="/rango/meet_the_team/">Meet the Team</a></li>
+          <li class="dropdown">
+              {% if user.is_authenticated %}
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Account <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="/rango/update_weight/">Update Weight</a></li>
+              <li><a href="/rango/view_weight/">User Dashboard</a></li>
+            <li><a href="/rango/logout/">Logout</a></li>
+            </ul>
+          </li>
+            {% else %}
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Login/Register<span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="/rango/register/">Register</a></li>
+                <li class="divider"></li>
+              <li><a href="/rango/login/">Login</a></li>
+            </ul>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+      <!--/.nav-collapse -->
+    </div>
+    <!--/.container-fluid -->
+  </nav>
+<body>
+    {% block content %}
+    {% endblock %}
+<aside id="accordion" class="social text-vertical-center" style="z-index:10020;float:right;">
+	<div class="accordion-social">
+		<a class="btn btn-dark btn-lg accordion-toggle" title="Follow Us" role="tab" id="social-collapse" data-toggle="collapse" data-parent="#accordion" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"></a>
+		<ul class="panel-collapse collapse in nav nav-stacked" role="tabpanel" aria-labelledby="social-collapse" id="collapseOne">
+			<li><a href="/rango/meet_the_team" ><i class="fa fa-lg fa-users"></i></a></li>
+      <li><a href="#" target="_blank"><i class="fa fa-lg fa-linkedin"></i></a></li>
+			<li><a href="https://capstoneprojectgymmie.github.io/gymmie-test/" ><i class="fa fa-lg fa-github"></i></a></li>
+		</ul>
+	</div>
+</aside>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
+
+        <script src="{% static "js/index.js" %}"></script>
+
+    
+    
+    
+  </body>
+</html>

@@ -1,0 +1,65 @@
+#rozay{
+    background-color: white;
+    background-position:top;
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    margin-top: 0px;
+    margin-left: 250px;
+    height: 100%;
+}
+
+h1.headerpad{
+    margin-top: auto;
+    padding-top: 75px;
+}
+
+.team{
+    padding: inherit;
+    text-align: center;
+    font-family:fantasy;
+}
+
+img{
+    border-radius: 50%
+}
+
+p.description{
+    margin-top: 0px;
+    margin-bottom: 50px;
+    margin-right: 50px;
+    margin-left: 50px;
+    
+}
+
+.column{
+    float: left;
+    width: 250px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-bottom: 1062px;
+    background: #324123;
+    overflow: hidden;
+}
+
+#logo{
+    padding-top: 100px;
+}
+
+#sidecontent{
+    padding-top: 20px;
+    font-family: fantasy;
+    text-align: center;
+    color: papayawhip;
+    height: 100%;
+    font-size: 24px;
+}
+
+.fa-ul{
+    padding-top: 50px;
+}
+
+#link{
+    display: inline;
+    margin-left: 20px;
+}

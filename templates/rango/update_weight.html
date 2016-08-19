@@ -1,0 +1,24 @@
+{% extends 'rango/base_nosidebar.html' %}
+
+{% block title %}{{ content }}{% endblock %}
+
+{% block content %}
+{% load staticfiles %}
+    <head>
+        <title>Update your weight
+        </title>
+    </head>
+<body>
+<h1>Enter current weight</h1>
+    <form id="weight_form" method="post" action="/rango/update_weight/">
+    {% csrf_token %}
+        {% for field in form.visible_fields  %}
+          {{ field.errors }}
+          {{ field }}
+        {% endfor %}
+        <input type="submit" name="submit" value="Update Weight" />
+    </form>
+    
+
+</body>
+{% endblock %}

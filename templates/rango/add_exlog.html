@@ -1,0 +1,36 @@
+{% extends 'rango/base_nosidebar.html' %}
+
+{% block title %}{{ content }}{% endblock %}
+
+{% block content %}
+{% load staticfiles %}
+<div style="width:50%;height:100%;float:left;">
+    <form id="routine_form" method="post" action="/rango/add/{{ the_exercise.ex_key }}/">
+    {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" name="submit" value="Update Exercise Log" />
+    </form>
+</div>
+<div style="width:50%;height:100%;float:right;">
+ <div class="col-md-6">
+     {% if the_exercise %}
+                        <div class="thumbnail" style="float:left;">
+                            {% with 'exercises/'|add:the_exercise.image_name as image_location %}
+                            <img src="{% static image_location %}" alt="ALT NAME" style="width:243px;height:243px;" />
+                            {% endwith %}
+                            <div>
+                                
+                                <p align="center">{{ the_exercise.ex_name }}</p>
+                                
+                                <p align="center">Sets : {{ ex.sets }} Reps: {{ ex.reps }} Weight: {{ ex.weight }}</p>
+                                
+                                <p align="center"><a href="#" class="btn btn-success btn-block btn-lg">Completed</a>
+                                <a href="#" class="btn btn-danger btn-block">Not Completed
+                                    </a></p>
+                            </div>
+                        </div>
+                
+                </div>
+    {% endif %}
+</div>
+{% endblock %}
