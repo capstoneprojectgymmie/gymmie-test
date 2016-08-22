@@ -119,9 +119,7 @@ USE_TZ = True
 
 #My static files configuration
 #static folder and static files directory
-STATIC_DIR = os.path.join(BASE_DIR, 'static')
-
-STATICFILES_DIRS = [STATIC_DIR, ]
+STATIC_ROOT = '/home/gtb/gymmie-test/static'
 
 
 # Static files (CSS, JavaScript, Images)
