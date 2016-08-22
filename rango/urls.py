@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from rango import views
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -12,3 +13,4 @@ urlpatterns = [
     url(r'^add/(?P<exercise_id>.*)/$', views.add_to_exlog, name='add'),
     url(r'^delete/(?P<routine_id>.*)/$', views.delete_exlog, name='remove'),
 ]
+urlpatterns += staticfiles_urlpatterns()
