@@ -121,6 +121,10 @@ USE_TZ = True
 #static folder and static files directory
 STATIC_ROOT = '/home/gtb/gymmie-test/static'
 
+STATICFILES_DIRS = [
+         os.path.join(BASE_DIR, "static"),
+]
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
