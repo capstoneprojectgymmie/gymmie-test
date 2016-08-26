@@ -4,7 +4,7 @@ from rango.models import (
 	Weightgraph,
 	Calculations,
 	ForGraphing,
-	LevelsGraph,
+	LevelGrowthGraph,
 	Exercise,
 	ExerciseRoutine
 	)
@@ -13,6 +13,6 @@ admin.site.register(Profile)
 admin.site.register(Weightgraph)
 admin.site.register(Calculations)
 admin.site.register(ForGraphing)
-admin.site.register(LevelsGraph)
+admin.site.register(LevelGrowthGraph)
 admin.site.register(Exercise)
 admin.site.register(ExerciseRoutine)

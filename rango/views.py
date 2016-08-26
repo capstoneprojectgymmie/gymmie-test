@@ -25,7 +25,7 @@ from rango.models import (
 	Weightgraph,
 	Calculations,
 	ForGraphing,
-	LevelsGraph,
+	LevelGrowthGraph,
 	Exercise,
 	ExerciseRoutine
 	)
@@ -48,7 +48,7 @@ from django.http import (
 # user is logged in
 from django.contrib.auth.decorators import login_required
 # The views: Homepage, Meet the Team, Registration,
-# Login, Logout, Update Weight, Show Weight,
+# Login, Logout, Update Weight, Show Weight, DeleteExLog
 def index(request):
 	return render(request,'rango/home.html')
 def meet_the_team(request):
@@ -73,14 +73,6 @@ def register(request):
 			calc.height_for_calc = profile.height
 			calc.weight_for_calc = profile.weight
 			calc.save()
-			mygrapher = ForGraphing(user=calc.user,bmi=calc.bmi,ibw=calc.user_ibw,ibw_hamwi=calc.user_ibw_hamwi, current_weight = calc.weight_for_calc)
-			mygrapher.save()
-			weight_user = Weightgraph(user = calc.user, weight = calc.weight_for_calc)
-			weight_user.save()
-			user_levels = LevelsGraph(user = calc.user,abslevel=calc.abs_level,leg=calc.leg_level,upperarm=calc.uarm_level,lowerarm=calc.larm_level,back=calc.back_level,chest=calc.cht_level,glutes=calc.glu_level,neck=calc.nec_level,overall=calc.overall)
-			user_levels.save()
-			#my_secret_calc = SecretCalculator(user = calc.user,abslevel=calc.abs_level,leg=calc.leg_level,upperarm=calc.uarm_level,lowerarm=calc.larm_level,back=calc.back_level,chest=calc.cht_level,glutes=calc.glu_level,neck=calc.nec_level
-			#my_secret_calc.save()
 			registered = True
 		else:
 			print(user_form.errors, profile_form.errors)
@@ -100,7 +92,7 @@ def user_login(request):
 				login(request, user)
 				#I can also add calculations as well 
 				#Here i can add code for setting the weightgraph's first value
-				return HttpResponseRedirect('/rango/')
+				return HttpResponseRedirect('/rango/view_weight/')
 			else:
 				return HttpResponse('Sorry but your account is disabled')
 		else:
@@ -292,7 +284,7 @@ def show_weight(request):
 	levelsdata = DataPool(
                   series=
                   [{'options': {
-                       'source': LevelsGraph.objects.filter(user=request.user)
+                       'source': LevelGrowthGraph.objects.filter(user=request.user)
                   },
                        'terms': [
                          'abslevel',
@@ -346,7 +338,7 @@ def show_weight(request):
 		           'credits': False
 		           }
 		)
-	levels = LevelsGraph.objects.filter(user=request.user).last()
+	levels = LevelGrowthGraph.objects.filter(user=request.user).last()
 	#the filters for the lists of exercises
 	# d-under contains allow us to search for exercise worked muscles
 	all_ex = Exercise.objects.all()
@@ -373,6 +365,7 @@ def show_weight(request):
 	return render_to_response('rango/view_weight.html',{'chart_list': [weightchart,weightchart2,bmichart,bmichart2,ibwchart,levelschart],'levels':levels,'all_ex':all_ex,'ab_ex':ab_ex,'abductor_ex':abductor_ex,'adductor_ex':adductor_ex,'biceps_ex':biceps_ex,'calves_ex':calves_ex,'chest_ex':chest_ex,'forearms_ex':forearms_ex,'glutes_ex':glutes_ex,'hamstrings_ex':hamstrings_ex,'lats_ex':lats_ex,'lback_ex':lback_ex,'mback_ex':mback_ex,'neck_ex':neck_ex,'quad_ex':quad_ex,'shoulder_ex':shoulder_ex,'traps_ex':traps_ex,'triceps_ex':triceps_ex, 'day_1log':day_1log,'day_2log':day_2log, 'day_3log':day_3log})
 @login_required
 def add_to_exlog(request,exercise_id):
+	# enter a if statement to check exercise equipment is bodyweight then get another form
 	the_exercise = get_object_or_404(Exercise, ex_key = exercise_id)
 	myroutine = ExerciseRoutine(user=request.user, exercise = the_exercise)
 	context = RequestContext(request)
@@ -389,18 +382,6 @@ def add_to_exlog(request,exercise_id):
 @login_required
 def delete_exlog(request,routine_id):
 	to_be_removed = get_object_or_404(ExerciseRoutine,id=routine_id)
-	current_state = Calculations.objects.get(user=request.user)
-	value = to_be_removed.absex()
-	new_abs = value + current_state.abs_level
-	new_leg = to_be_removed.leg_ex + current_state.leg_level
-	new_uarm = to_be_removed.uarm_ex + current_state.uarm_level
-	new_larm = to_be_removed.larm_ex + current_state.larm_level
-	new_back = to_be_removed.back_ex + current_state.back_level
-	new_chest = to_be_removed.cht_ex + current_state.cht_level
-	new_glu = to_be_removed.glu_ex + current_state.glu_level
-	new_nec = to_be_removed.nec_ex + current_state.nec_level
-	new_overall = (new_abs + new_leg + new_uarm + new_larm + new_back + new_chest + new_glu + new_nec)/ 8
-	new_levels = LevelsGraph.objects.create(user=request.user,abslevel=new_abs,leg=new_leg,upperarm = new_uarm, lowerarm = new_larm, back = new_back, chest = new_chest, glutes = new_glu, neck = new_nec, overall = new_overall)
-	new_levels.save()
-	to_be_removed.delete()
+	to_be_removed.truedelete()
 	return HttpResponseRedirect('/rango/view_weight/')
+#add delete ex log function to remove exercises that have not been completed

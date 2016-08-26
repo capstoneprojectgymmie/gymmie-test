@@ -5,6 +5,10 @@ from datetime import datetime
 import time
 from django.contrib.auth.models import User
 from django.dispatch import receiver
+from django.core.validators import (
+	MaxValueValidator,
+	MinValueValidator
+	)
 # Create your models here.
 class Profile(models.Model):
 	user = models.OneToOneField(User)
@@ -39,7 +43,7 @@ class ForGraphing(models.Model):
 		return string
 #for level progressions graph
 # saves on every entry to user dashboard (so every login or every navigation to the user dashboard)
-class LevelsGraph(models.Model):
+class LevelGrowthGraph(models.Model):
 	user = models.ForeignKey(User, related_name="levelsgraph")
 	abslevel = models.FloatField()
 	leg = models.FloatField()
@@ -51,6 +55,9 @@ class LevelsGraph(models.Model):
 	neck = models.FloatField()
 	overall = models.FloatField()
 	date = models.DateTimeField(default = datetime.now())
+	month = models.IntegerField(default = datetime.now().month)
+	year = models.IntegerField(default = datetime.now().year)
+	day = models.IntegerField(default = datetime.now().day)
 	def __str__(self):
 		string = 'levels'
 		return string
@@ -93,8 +100,10 @@ class Calculations(models.Model):
 	squats = models.IntegerField()
 	calf_raises = models.IntegerField()
 	#levels - redo abs, back, and neck
+	# relates to sit up scale [60 is excellent 15 is poor] dummies
+	# but also to possible 200 situp program so 200 equals maxlevel 150 
 	def get_abs_level(self):
-		level_abs = 20
+		level_abs = self.sit_ups * 0.75
 		return level_abs
 	abs_level = property(get_abs_level)
 	def get_leg_level(self):
@@ -131,7 +140,7 @@ class Calculations(models.Model):
 		return level_larm
 	larm_level = property(get_larm)
 	def get_back(self):
-		level_back = 45
+		level_back = 0
 		return level_back
 	back_level = property(get_back)
 	def get_chest(self):
@@ -165,6 +174,14 @@ class Calculations(models.Model):
 		overall_level = overall_sum / 7
 		return overall_level
 	overall = property(get_overall)
+	def save(self, *args, **kwargs):
+		graph_initialize, created = ForGraphing.objects.get_or_create(user = self.user, bmi = self.bmi, ibw = self.user_ibw, ibw_hamwi = self.user_ibw_hamwi, current_weight = self.weight_for_calc)
+		graph_initialize.save()
+		weight_initialize = Weightgraph(user = self.user, weight = self.weight_for_calc)
+		weight_initialize.save()
+		initial_level = LevelGrowthGraph(user = self.user, abslevel = self.abs_level, leg = self.leg_level, upperarm = self.uarm_level, lowerarm = self.larm_level, back = self.back_level, chest = self.cht_level, glutes = self.glu_level, neck = self.nec_level, overall = self.overall)
+		initial_level.save()
+		super(Calculations, self).save(*args, **kwargs)
 	def __str__(self):
 		rndm_name = 'calculation'
 		return rndm_name
@@ -177,71 +194,12 @@ class Exercise(models.Model):
 	image_name = models.CharField(max_length=100)
 	directions = models.CharField(max_length=10000)
 	categories = models.CharField(max_length=200)
+	equipment = models.CharField(max_length=200, default="Body Only")
 	def __str__(self):
 		return self.ex_name
 	def grab_exercise(self):
 		array = [self.ex_key,self.ex_name,self.ex_type,self.ex_dif]
 		return array
-'''
-# Secret Calculator model
-class SecretCalculator(models.Model):
-	user = models.OneToOneField(User)
-	abslevel = models.FloatField()
-	leg = models.FloatField()
-	upperarm = models.FloatField()
-	lowerarm = models.FloatField()
-	back = models.FloatField()
-	chest = models.FloatField()
-	glutes = models.FloatField()
-	neck = models.FloatField()
-	abs_ex = models.FloatField()
-	leg_ex = models.FloatField()
-	uarm_ex = models.FloatField()
-	larm_ex = models.FloatField()
-	back_ex = models.FloatField()
-	cht_ex = models.FloatField()
-	glu_ex = models.FloatField()
-	nec_ex = models.FloatField()
-	def absex(self):
-		new = self.abslevel + self.abs_ex
-		return new
-	new_abs = property(absex)
-	def legex(self):
-		new = self.leg + self.leg_ex
-		return new 
-	new_leg = property(legex)
-	def uarmex(self):
-		new = self.upperarm + self.uarm_ex
-		return new 
-	new_uarm = property(uarmex)
-	def larmex(self):
-		new = self.lowerarm + self.larm_ex
-		return new
-	new_larm = property(larmex)
-	def backex(self):
-		new = self.back + self.back_ex
-		return new
-	new_back = property(backex)
-	def chtex(self):
-		new = self.chest + self.cht_ex
-		return new
-	cht_ex = property(chtex)
-	def gluex(self):
-		new = self.glutes + self._ex
-		return new
-	glu_ex = property(gluex)
-	def necex(self):
-		the_experience = 0
-		string = self.exercise.categories
-		if 'Chest' in string:
-			if self.weight == 0:
-				the_experience = self.sets * self.reps * 0.5
-			else:
-				the_experience = self.sets * self.reps * 0.3275
-		return the_experience
-	nec_ex = property(necex)
-'''
-
 #<<< Using exercise key to add
 #add exercise from web as long as i have exercise key i can declare Exercise object
 # ex = Exercise(ex_key = exercise_key) then use as such
@@ -251,9 +209,9 @@ class SecretCalculator(models.Model):
 class ExerciseRoutine(models.Model):
 	user = models.ForeignKey(User , related_name = 'routine')
 	exercise = models.ForeignKey('Exercise', on_delete = models.CASCADE)
-	sets = models.IntegerField()
-	reps = models.IntegerField()
-	weight = models.IntegerField(default=0)
+	sets = models.IntegerField(default=1, validators = [MinValueValidator(1),MaxValueValidator(100)])
+	reps = models.IntegerField(default=1, validators = [MinValueValidator(1),MaxValueValidator(100)])
+	weight = models.IntegerField(default=0, validators = [MinValueValidator(0),MaxValueValidator(500)])
 	DAYONE = 'DayOne'
 	DAYTWO = 'DayTwo'
 	DAYTHREE = 'DayThree'
@@ -267,82 +225,106 @@ class ExerciseRoutine(models.Model):
 		the_experience = 0
 		string = self.exercise.categories
 		if 'Abs' in string:
-			the_experience = self.sets * self.reps * 0.5
-			return the_experience
+			the_experience = ((self.sets * self.reps) * 0.75)/100
+			if self.exercise.ex_type == 'Stretching':
+				the_experience = 0.00455
+		return the_experience
 	abs_ex = property(absex)
 	def legex(self):
 		the_experience = 0
+		my_profile = Profile.objects.filter(user=self.user)
 		string = self.exercise.categories
 		if 'Abductors' or 'Adductors' or 'Calves' or 'Hamstrings' in string:
-			if self.weight == 0:
-				the_experience = self.sets * self.reps * 0.5
-			else:
-				the_experience = self.sets * self.reps * 0.3275
+			the_experience = ((self.weight +(my_profile.weight * 0.72)) * (self.reps**0.1)) / 150
+			if self.exercise.ex_type == 'Stretching':
+				the_experience = 0.00455
 		return the_experience 
 	leg_ex = property(legex)
 	def uarmex(self):
 		the_experience = 0
 		string = self.exercise.categories
 		if 'Biceps' or 'Triceps' in string:
-			if self.weight == 0:
-				the_experience = self.sets * self.reps * 0.5
-			else:
-				the_experience = self.sets * self.reps * 0.3275
+			the_experience = ((self.weight +(my_profile.weight * 0.72)) * (self.reps**0.1)) / 150
+			if self.exercise.ex_type == 'Stretching':
+				the_experience = 0.00455
 		return the_experience 
 	uarm_ex = property(uarmex)
 	def larmex(self):
 		the_experience = 0
 		string = self.exercise.categories
 		if 'Forearms' in string:
-			if self.weight == 0:
-				the_experience = self.sets * self.reps * 0.5
-			else:
-				the_experience = self.sets * self.reps * 0.3275
+			the_experience = ((self.weight +(my_profile.weight * 0.72)) * (self.reps**0.1)) / 300
+			if self.exercise.ex_type == 'Stretching':
+				the_experience = 0.00455
 		return the_experience
 	larm_ex = property(larmex)
 	def backex(self):
 		the_experience = 0
 		string = self.exercise.categories
 		if 'Lats' or 'Lower' or 'Middle' or 'Traps' in string:
-			if self.weight == 0:
-				the_experience = self.sets * self.reps * 0.5
-			else:
-				the_experience = self.sets * self.reps * 0.3275
+			the_experience = ((self.weight +(my_profile.weight * 0.50)) * (self.reps**0.1)) / 450
+			if self.exercise.ex_type == 'Stretching':
+				the_experience = 0.00455
 		return the_experience
 	back_ex = property(backex)
 	def chtex(self):
 		the_experience = 0
 		string = self.exercise.categories
 		if 'Chest' in string:
-			if self.weight == 0:
-				the_experience = self.sets * self.reps * 0.5
-			else:
-				the_experience = self.sets * self.reps * 0.3275
+			the_experience = ((self.weight +(my_profile.weight * 0.72)) * (self.reps**0.1)) / 150
+			if self.exercise.ex_type == 'Stretching':
+				the_experience = 0.00455
 		return the_experience
 	cht_ex = property(chtex)
 	def gluex(self):
 		the_experience = 0
 		string = self.exercise.categories
 		if 'Glutes' in string:
-			if self.weight == 0:
-				the_experience = self.sets * self.reps * 0.5
-			else:
-				the_experience = self.sets * self.reps * 0.3275
+			the_experience = ((self.weight +(my_profile.weight * 0.72)) * (self.reps**0.1)) / 150
+			if self.exercise.ex_type == 'Stretching':
+				the_experience = 0.00455
 		return the_experience
 	glu_ex = property(gluex)
 	def necex(self):
 		the_experience = 0
 		string = self.exercise.categories
-		if 'Chest' in string:
-			if self.weight == 0:
-				the_experience = self.sets * self.reps * 0.5
-			else:
-				the_experience = self.sets * self.reps * 0.3275
+		if 'Neck' in string:
+			the_experience = ((self.weight +(my_profile.weight * 0.45)) * (self.reps**0.1)) / 450
+			if self.exercise.ex_type == 'Stretching':
+				the_experience = 0.00455
 		return the_experience
 	nec_ex = property(necex)
 	def __str__(self):
 		string = "routine"
 		return string
+	def truedelete(self):
+		#self contained method which will update levels based on
+		#the exercise complete
+		current_levels = LevelGrowthGraph.objects.filter(user=self.user).latest('date')
+		new_abs = self.absex() + current_levels.abslevel
+		new_leg = self.legex() + current_levels.leg
+		new_uarm = self.uarmex() + current_levels.upperarm
+		new_larm = self.larmex() + current_levels.lowerarm
+		new_back = self.backex() + current_levels.back
+		new_chest = self.chtex() + current_levels.chest
+		new_glu = self.gluex() + current_levels.glutes
+		new_nec = self.necex() + current_levels.neck
+		new_overall = (new_abs + new_leg + new_uarm + new_larm + new_back + new_chest + new_glu	+ new_nec) / 8
+		month_to_enter = datetime.now().month
+		year_to_enter = datetime.now().year
+		day_to_enter = datetime.now().day
+		new_levels, created = LevelGrowthGraph.objects.get_or_create(user=self.user,month=month_to_enter,day=day_to_enter,year=year_to_enter)
+		new_levels.abslevel = new_abs
+		new_levels.leg = new_leg
+		new_levels.upperarm = new_uarm
+		new_levels.lowerarm = new_larm
+		new_levels.back = new_back
+		new_levels.chest = new_chest
+		new_levels.glutes = new_glu
+		new_levels.neck = new_nec
+		new_levels.overall = new_overall
+		new_levels.save()
+		super(ExerciseRoutine, self).delete()
 	#def delete(self):
 	#	x = SecretCalculator.objects.filter(user=self.user).update(abs_ex += self.abs_ex, leg_ex += self.leg_ex, uarm_ex += self.uarm_ex, larm_ex += self.larm_ex, back_ex += self.back_ex, cht_ex += self.cht_ex, glu_ex += self.glu_ex, nec_ex += self.nec_ex)
 	#	x.save()
