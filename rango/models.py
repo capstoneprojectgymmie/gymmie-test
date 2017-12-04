@@ -11,7 +11,7 @@ from django.core.validators import (
 	)
 # Create your models here.
 class Profile(models.Model):
-	user = models.OneToOneField(User)
+	user = models.OneToOneField(User,on_delete=models.CASCADE)
 	weight = models.IntegerField()
 	height = models.IntegerField()
 	MALE = 'Male'
@@ -24,7 +24,7 @@ class Profile(models.Model):
 	def __str__(self):
 		return self.user.username
 class Weightgraph(models.Model):
-	user = models.ForeignKey(User,related_name='weightgraph')
+	user = models.ForeignKey(User,related_name='weightgraph',on_delete=models.CASCADE)
 	weight = models.IntegerField()
 	day = models.AutoField(primary_key = True)
 	date = models.DateTimeField(default = datetime.now())
@@ -33,7 +33,7 @@ class Weightgraph(models.Model):
 		return string
 # workarounds for django chart-it
 class ForGraphing(models.Model):
-	user = models.OneToOneField(User)
+	user = models.OneToOneField(User,on_delete=models.CASCADE)
 	bmi = models.FloatField()
 	ibw = models.FloatField()
 	ibw_hamwi = models.FloatField()
@@ -44,7 +44,7 @@ class ForGraphing(models.Model):
 #for level progressions graph
 # saves on every entry to user dashboard (so every login or every navigation to the user dashboard)
 class LevelGrowthGraph(models.Model):
-	user = models.ForeignKey(User, related_name="levelsgraph")
+	user = models.ForeignKey(User, related_name="levelsgraph",on_delete=models.CASCADE)
 	abslevel = models.FloatField()
 	leg = models.FloatField()
 	upperarm = models.FloatField()
@@ -70,7 +70,7 @@ class LevelGrowthGraph(models.Model):
 #Biggest model
 '''
 class Calculations(models.Model):
-	user = models.OneToOneField(User)
+	user = models.OneToOneField(User,on_delete=models.CASCADE)
 	height_for_calc = models.IntegerField()
 	weight_for_calc = models.IntegerField()
 	bmi = models.IntegerField()
@@ -207,7 +207,7 @@ class Exercise(models.Model):
 # then have a form which adds in the remaining fields 
 #>>>
 class ExerciseRoutine(models.Model):
-	user = models.ForeignKey(User , related_name = 'routine')
+	user = models.ForeignKey(User , related_name = 'routine',on_delete=models.CASCADE)
 	exercise = models.ForeignKey('Exercise', on_delete = models.CASCADE)
 	sets = models.IntegerField(default=1, validators = [MinValueValidator(1),MaxValueValidator(100)])
 	reps = models.IntegerField(default=1, validators = [MinValueValidator(1),MaxValueValidator(100)])
