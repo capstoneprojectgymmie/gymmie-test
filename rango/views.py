@@ -98,7 +98,7 @@ def user_login(request):
 		else:
 			return HttpResponse('You provided Invalid Details')
 	else:
-		return render_to_response('rango/login.html',{},context)
+		return render(request,'rango/login.html')
 @login_required
 def user_logout(request):
 	logout(request)
