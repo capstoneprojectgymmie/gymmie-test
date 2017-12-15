@@ -116,7 +116,7 @@ def update_weight(request):
 			print (form.errors)
 	else:
 		form = WeightForm()
-	return render_to_response('rango/update_weight.html',{'form':form}, context)
+	return render(request,'rango/update_weight.html',{'form':form}, context)
 @login_required
 def show_weight(request):
 	weightdata = DataPool(
@@ -378,7 +378,7 @@ def add_to_exlog(request,exercise_id):
 			print (form.errors)
 	else:
 		form = RoutineForm()
-	return render_to_response('rango/add_exlog.html',{'form':form,'the_exercise':the_exercise}, context)
+	return render(request,'rango/add_exlog.html',{'form':form,'the_exercise':the_exercise}, context)
 @login_required
 def delete_exlog(request,routine_id):
 	to_be_removed = get_object_or_404(ExerciseRoutine,id=routine_id)
