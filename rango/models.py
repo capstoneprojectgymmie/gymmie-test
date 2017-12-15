@@ -232,7 +232,7 @@ class ExerciseRoutine(models.Model):
 	abs_ex = property(absex)
 	def legex(self):
 		the_experience = 0
-		my_profile = Profile.objects.filter(user=self.user)
+		my_profile = Profile.objects.get(user=self.user)
 		string = self.exercise.categories
 		if 'Abductors' or 'Adductors' or 'Calves' or 'Hamstrings' in string:
 			the_experience = ((self.weight +(my_profile.weight * 0.72)) * (self.reps**0.1)) / 150
@@ -242,6 +242,7 @@ class ExerciseRoutine(models.Model):
 	leg_ex = property(legex)
 	def uarmex(self):
 		the_experience = 0
+		my_profile = Profile.objects.get(user=self.user)
 		string = self.exercise.categories
 		if 'Biceps' or 'Triceps' in string:
 			the_experience = ((self.weight +(my_profile.weight * 0.72)) * (self.reps**0.1)) / 150
@@ -251,6 +252,7 @@ class ExerciseRoutine(models.Model):
 	uarm_ex = property(uarmex)
 	def larmex(self):
 		the_experience = 0
+		my_profile = Profile.objects.get(user=self.user)
 		string = self.exercise.categories
 		if 'Forearms' in string:
 			the_experience = ((self.weight +(my_profile.weight * 0.72)) * (self.reps**0.1)) / 300
@@ -260,6 +262,7 @@ class ExerciseRoutine(models.Model):
 	larm_ex = property(larmex)
 	def backex(self):
 		the_experience = 0
+		my_profile = Profile.objects.get(user=self.user)
 		string = self.exercise.categories
 		if 'Lats' or 'Lower' or 'Middle' or 'Traps' in string:
 			the_experience = ((self.weight +(my_profile.weight * 0.50)) * (self.reps**0.1)) / 450
@@ -269,6 +272,7 @@ class ExerciseRoutine(models.Model):
 	back_ex = property(backex)
 	def chtex(self):
 		the_experience = 0
+		my_profile = Profile.objects.get(user=self.user)
 		string = self.exercise.categories
 		if 'Chest' in string:
 			the_experience = ((self.weight +(my_profile.weight * 0.72)) * (self.reps**0.1)) / 150
@@ -278,6 +282,7 @@ class ExerciseRoutine(models.Model):
 	cht_ex = property(chtex)
 	def gluex(self):
 		the_experience = 0
+		my_profile = Profile.objects.get(user=self.user)
 		string = self.exercise.categories
 		if 'Glutes' in string:
 			the_experience = ((self.weight +(my_profile.weight * 0.72)) * (self.reps**0.1)) / 150
@@ -287,6 +292,7 @@ class ExerciseRoutine(models.Model):
 	glu_ex = property(gluex)
 	def necex(self):
 		the_experience = 0
+		my_profile = Profile.objects.get(user=self.user)
 		string = self.exercise.categories
 		if 'Neck' in string:
 			the_experience = ((self.weight +(my_profile.weight * 0.45)) * (self.reps**0.1)) / 450
@@ -313,16 +319,7 @@ class ExerciseRoutine(models.Model):
 		month_to_enter = datetime.now().month
 		year_to_enter = datetime.now().year
 		day_to_enter = datetime.now().day
-		new_levels, created = LevelGrowthGraph.objects.get_or_create(user=self.user,month=month_to_enter,day=day_to_enter,year=year_to_enter)
-		new_levels.abslevel = new_abs
-		new_levels.leg = new_leg
-		new_levels.upperarm = new_uarm
-		new_levels.lowerarm = new_larm
-		new_levels.back = new_back
-		new_levels.chest = new_chest
-		new_levels.glutes = new_glu
-		new_levels.neck = new_nec
-		new_levels.overall = new_overall
+		new_levels, created = LevelGrowthGraph.objects.get_or_create(user=self.user,month=month_to_enter,day=day_to_enter,year=year_to_enter,abslevel = new_abs, leg = new_leg,upperarm = new_uarm,lowerarm = new_larm,back = new_back,chest = new_chest,glutes = new_glu,neck = new_nec,overall = new_overall)
 		new_levels.save()
 		super(ExerciseRoutine, self).delete()
 	#def delete(self):
