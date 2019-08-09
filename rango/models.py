@@ -11,7 +11,7 @@ from django.core.validators import (
 	)
 # Create your models here.
 class Profile(models.Model):
-	user = models.OneToOneField(User)
+	user = models.OneToOneField(User,on_delete=models.CASCADE)
 	weight = models.IntegerField()
 	height = models.IntegerField()
 	MALE = 'Male'
@@ -24,7 +24,7 @@ class Profile(models.Model):
 	def __str__(self):
 		return self.user.username
 class Weightgraph(models.Model):
-	user = models.ForeignKey(User,related_name='weightgraph')
+	user = models.ForeignKey(User,related_name='weightgraph',on_delete=models.CASCADE)
 	weight = models.IntegerField()
 	day = models.AutoField(primary_key = True)
 	date = models.DateTimeField(default = datetime.now())
@@ -33,7 +33,7 @@ class Weightgraph(models.Model):
 		return string
 # workarounds for django chart-it
 class ForGraphing(models.Model):
-	user = models.OneToOneField(User)
+	user = models.OneToOneField(User,on_delete=models.CASCADE)
 	bmi = models.FloatField()
 	ibw = models.FloatField()
 	ibw_hamwi = models.FloatField()
@@ -44,7 +44,7 @@ class ForGraphing(models.Model):
 #for level progressions graph
 # saves on every entry to user dashboard (so every login or every navigation to the user dashboard)
 class LevelGrowthGraph(models.Model):
-	user = models.ForeignKey(User, related_name="levelsgraph")
+	user = models.ForeignKey(User, related_name="levelsgraph",on_delete=models.CASCADE)
 	abslevel = models.FloatField()
 	leg = models.FloatField()
 	upperarm = models.FloatField()
@@ -70,7 +70,7 @@ class LevelGrowthGraph(models.Model):
 #Biggest model
 '''
 class Calculations(models.Model):
-	user = models.OneToOneField(User)
+	user = models.OneToOneField(User,on_delete=models.CASCADE)
 	height_for_calc = models.IntegerField()
 	weight_for_calc = models.IntegerField()
 	bmi = models.IntegerField()
@@ -207,7 +207,7 @@ class Exercise(models.Model):
 # then have a form which adds in the remaining fields 
 #>>>
 class ExerciseRoutine(models.Model):
-	user = models.ForeignKey(User , related_name = 'routine')
+	user = models.ForeignKey(User , related_name = 'routine',on_delete=models.CASCADE)
 	exercise = models.ForeignKey('Exercise', on_delete = models.CASCADE)
 	sets = models.IntegerField(default=1, validators = [MinValueValidator(1),MaxValueValidator(100)])
 	reps = models.IntegerField(default=1, validators = [MinValueValidator(1),MaxValueValidator(100)])
@@ -232,7 +232,7 @@ class ExerciseRoutine(models.Model):
 	abs_ex = property(absex)
 	def legex(self):
 		the_experience = 0
-		my_profile = Profile.objects.filter(user=self.user)
+		my_profile = Profile.objects.get(user=self.user)
 		string = self.exercise.categories
 		if 'Abductors' or 'Adductors' or 'Calves' or 'Hamstrings' in string:
 			the_experience = ((self.weight +(my_profile.weight * 0.72)) * (self.reps**0.1)) / 150
@@ -242,6 +242,7 @@ class ExerciseRoutine(models.Model):
 	leg_ex = property(legex)
 	def uarmex(self):
 		the_experience = 0
+		my_profile = Profile.objects.get(user=self.user)
 		string = self.exercise.categories
 		if 'Biceps' or 'Triceps' in string:
 			the_experience = ((self.weight +(my_profile.weight * 0.72)) * (self.reps**0.1)) / 150
@@ -251,6 +252,7 @@ class ExerciseRoutine(models.Model):
 	uarm_ex = property(uarmex)
 	def larmex(self):
 		the_experience = 0
+		my_profile = Profile.objects.get(user=self.user)
 		string = self.exercise.categories
 		if 'Forearms' in string:
 			the_experience = ((self.weight +(my_profile.weight * 0.72)) * (self.reps**0.1)) / 300
@@ -260,6 +262,7 @@ class ExerciseRoutine(models.Model):
 	larm_ex = property(larmex)
 	def backex(self):
 		the_experience = 0
+		my_profile = Profile.objects.get(user=self.user)
 		string = self.exercise.categories
 		if 'Lats' or 'Lower' or 'Middle' or 'Traps' in string:
 			the_experience = ((self.weight +(my_profile.weight * 0.50)) * (self.reps**0.1)) / 450
@@ -269,6 +272,7 @@ class ExerciseRoutine(models.Model):
 	back_ex = property(backex)
 	def chtex(self):
 		the_experience = 0
+		my_profile = Profile.objects.get(user=self.user)
 		string = self.exercise.categories
 		if 'Chest' in string:
 			the_experience = ((self.weight +(my_profile.weight * 0.72)) * (self.reps**0.1)) / 150
@@ -278,6 +282,7 @@ class ExerciseRoutine(models.Model):
 	cht_ex = property(chtex)
 	def gluex(self):
 		the_experience = 0
+		my_profile = Profile.objects.get(user=self.user)
 		string = self.exercise.categories
 		if 'Glutes' in string:
 			the_experience = ((self.weight +(my_profile.weight * 0.72)) * (self.reps**0.1)) / 150
@@ -287,6 +292,7 @@ class ExerciseRoutine(models.Model):
 	glu_ex = property(gluex)
 	def necex(self):
 		the_experience = 0
+		my_profile = Profile.objects.get(user=self.user)
 		string = self.exercise.categories
 		if 'Neck' in string:
 			the_experience = ((self.weight +(my_profile.weight * 0.45)) * (self.reps**0.1)) / 450
@@ -313,16 +319,7 @@ class ExerciseRoutine(models.Model):
 		month_to_enter = datetime.now().month
 		year_to_enter = datetime.now().year
 		day_to_enter = datetime.now().day
-		new_levels, created = LevelGrowthGraph.objects.get_or_create(user=self.user,month=month_to_enter,day=day_to_enter,year=year_to_enter)
-		new_levels.abslevel = new_abs
-		new_levels.leg = new_leg
-		new_levels.upperarm = new_uarm
-		new_levels.lowerarm = new_larm
-		new_levels.back = new_back
-		new_levels.chest = new_chest
-		new_levels.glutes = new_glu
-		new_levels.neck = new_nec
-		new_levels.overall = new_overall
+		new_levels, created = LevelGrowthGraph.objects.get_or_create(user=self.user,month=month_to_enter,day=day_to_enter,year=year_to_enter,abslevel = new_abs, leg = new_leg,upperarm = new_uarm,lowerarm = new_larm,back = new_back,chest = new_chest,glutes = new_glu,neck = new_nec,overall = new_overall)
 		new_levels.save()
 		super(ExerciseRoutine, self).delete()
 	#def delete(self):
